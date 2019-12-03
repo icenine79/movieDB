@@ -1,23 +1,31 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { AdminComponent } from './components/admin/admin.component';
-import { AdminRoutingModule } from './admin-routing.module';
-import { AdminGuardService } from './services/admin-guard.service';
-import {UserDetailComponent} from './components/user-detail/user-detail.component';
-import { DynamicComponent } from './components/dynamic/dynamic.component';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { FormsModule } from "@angular/forms";
 
+import { AdminComponent } from "./components/admin/admin.component";
+import { AdminRoutingModule } from "./admin-routing.module";
+import { AdminGuardService } from "./services/admin-guard.service";
+import { UserDetailComponent } from "./components/user-detail/user-detail.component";
+import { DynamicComponent } from "./components/dynamic/dynamic.component";
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { ModalComponent } from "./components/user-detail/modal/modal.component";
 
 @NgModule({
   declarations: [
-    AdminComponent, 
+    AdminComponent,
     UserDetailComponent,
-    DynamicComponent
-    ],
+    DynamicComponent,
+    ModalComponent
+  ],
   imports: [
     CommonModule,
-    AdminRoutingModule
-  ], 
-  entryComponents: [ DynamicComponent ],
-  providers:[ AdminGuardService]
+    FormsModule,
+    AdminRoutingModule,
+    NgbModule
+  ],
+  entryComponents: [
+    DynamicComponent,
+    ModalComponent],
+  providers: [AdminGuardService]
 })
-export class AdminModule { }
+export class AdminModule {}
