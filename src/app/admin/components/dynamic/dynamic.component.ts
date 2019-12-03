@@ -8,7 +8,7 @@ import { User } from '../../../shared/models/user';
   styleUrls: ['./dynamic.component.css']
 })
 export class DynamicComponent implements OnInit {
-@Input('user') users:User[]
+
 
   constructor() { }
 

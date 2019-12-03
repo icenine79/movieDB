@@ -33,8 +33,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private resolver: ComponentFactoryResolver
   ) {
-    /* this.currentUser = this.authService.currentUserValue;
-    console.log(this.currentUser); */
+
     this.currentUser = JSON.parse(localStorage.getItem("currentUser"));
   }
 
@@ -69,7 +68,7 @@ export class AdminComponent implements OnInit, OnDestroy {
 
     this.componentRef = this.container.createComponent(factory);
 
-    this.componentRef.instance.users = this.users;
+    //this.componentRef.instance.users = this.users;
   }
 
   ngOnDestroy() {
