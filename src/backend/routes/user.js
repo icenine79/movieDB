@@ -1,4 +1,4 @@
-const express = require("express");
+/* const express = require("express");
 //const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/users");
@@ -90,3 +90,4 @@ router.post("/login", (req, res, next) => {
 });
 
 module.exports = router;
+ */

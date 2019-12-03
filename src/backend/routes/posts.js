@@ -1,4 +1,4 @@
-const express = require("express");
+/* const express = require("express");
 
 const Post = require("../models/post");
 
@@ -65,3 +65,4 @@ router.delete("/:id", (req, res, next) => {
 });
 
 module.exports = router;
+ */

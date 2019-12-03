@@ -1,4 +1,4 @@
-const express = require("express");
+/* const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
@@ -41,3 +41,4 @@ app.use("/api/posts", postsRoutes);
 app.use("/api/user", userRoutes);
 
 module.exports = app;
+ */
