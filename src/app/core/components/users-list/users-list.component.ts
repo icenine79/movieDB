@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { UserService } from "../../services/user.service";
 import { Router } from "@angular/router";
 import { CacheService } from '../../services/cache.service';
+import { User } from 'src/app/shared/models/user';
 
 
 @Component({
@@ -14,11 +15,11 @@ export class UsersListComponent implements OnInit {
     private cacheService: CacheService,
     private router: Router
   ) {}
-  user$;
-  storedMovies:any;
+
+  user:User;
 
   ngOnInit() {
-    this.user$ = this.cacheService.getAll();
+    this.user = JSON.parse(localStorage.getItem('currentUser'));
   }
   editUser(id: string | number) {
     this.router.navigate(["/edit", id]);

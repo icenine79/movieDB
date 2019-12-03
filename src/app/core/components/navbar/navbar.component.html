@@ -11,11 +11,12 @@
           <a class="nav-link" routerLink="home" (click)="isMenuCollapsed = true">Home</a>
         </li>
          <li class="nav-item active">
-           <a class="nav-link" routerLink="list" (click)="isMenuCollapsed = true">List</a>
+           <a class="nav-link" *ngIf="isLogged()" routerLink="list" (click)="isMenuCollapsed = true">Edit
+             Credentials</a>
          </li>
 
         <li class="nav-item">
-            <a class="nav-link" routerLink="login" (click)="isMenuCollapsed = true">Login</a>
+            <a class="nav-link" *ngIf="!isLogged()" routerLink="login" (click)="isMenuCollapsed = true">Login</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" *ngIf="isLogged()" routerLink="login" (click)="logOut()">Log Out</a>

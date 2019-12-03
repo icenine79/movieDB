@@ -11,10 +11,10 @@ export class NavbarComponent implements OnInit {
   public isMenuCollapsed = true;
   currentUser:User;
   constructor(private auth: AuthService) {
-    //this.currentUser=this.auth.currentUserValue
+    this.currentUser = JSON.parse(localStorage.getItem("currentUser"));
    }
   ngOnInit() {}
-    
+
 isLogged(){
  return this.auth.isLoggedIn()
 }
