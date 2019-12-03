@@ -5,9 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import {ViewEncapsulation} from '@angular/core';
 import { first } from 'rxjs/operators';
 import { Fader } from "../../../shared/animations"
-import { YoutubeService } from '../../services/youtube.service';
-import { DomSanitizer } from '@angular/platform-browser';
-import { SafeHtmlPipe } from '../../../helpers/pipes/sanitizer';
+
 
 
 @Component({
@@ -15,8 +13,7 @@ import { SafeHtmlPipe } from '../../../helpers/pipes/sanitizer';
   encapsulation: ViewEncapsulation.None,
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  animations:[Fader.animations],
-  providers:[SafeHtmlPipe]
+  animations:[Fader.animations]
 })
 export class LoginComponent implements OnInit, AfterViewInit {
   message:string;
@@ -29,10 +26,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private route: ActivatedRoute,
-    private youtubeService:YoutubeService,
-    private sanitizer: DomSanitizer,
-    private safeHTML: SafeHtmlPipe){
+    private route: ActivatedRoute){
 
   }
 
@@ -45,12 +39,6 @@ ngAfterViewInit(){
       userName: ['', Validators.required],
       password: ['', Validators.required]
     });
-   /*  this.youtubeService.getTrailer().subscribe(data=>{
-this.trailer=data
-
-      console.log(this.trailer)
-
-    }) */
 
   }
   get userName() { return this.loginForm.get('userName') }
