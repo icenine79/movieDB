@@ -1,0 +1,58 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12" *ngIf="movie">
+
+      <div class="media">
+        <img class="mr-3" src="{{movie.Poster}}" alt="{{movie.Title}}">
+        <div class="media-body">
+          <h3 class="mt-0">{{movie.Title}}</h3>
+          <br>
+          <h5 class="mt-0">Plot</h5>
+          <p class="text-justify">{{plot.Plot}}</p>
+          <br>
+          <h5 class="mt-0"><b>Directed by</b> {{movie.Director}}</h5>
+          <br>
+          <h5 class="mt-0"><b>Written by</b> {{movie.Writer}}</h5>
+          <br>
+          <h5 class="mt-0"><b>Cast:</b> {{movie.Actors}}</h5>
+          <br>
+          <h5 class="mt-0"><b>Awards: </b> {{movie.Awards}}</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <div *ngIf="dropdown && movie.totalSeasons">
+        <label>Select a season</label>
+        <select (change)="searchEpisode($event.target.value)" class="form-control">
+          <option *ngFor="let t of test" [value]="t">{{t}}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="episodes" style="margin-top:20px">
+    <div class="col-md-6"  *ngFor="let e of episodes;let i=index">
+     <ul class="list-group">
+       <li class="list-group-item">
+        <strong>Episode {{e.Episode}}:
+          <br>
+        </strong> <i>{{e.Title}}</i>
+        <br>
+        <strong>Release date</strong>
+        <br>
+        {{e.Released}}
+        <br>
+        <strong>IMDB Rating</strong>
+        <br>
+        {{e.imdbRating}}
+       </li>
+
+     </ul>
+    </div>
+     <!-- <iframe [src]='sanitizer.bypassSecurityTrustResourceUrl("http://www.youtube.com/embed/hEJnMQG9ev8")' width="640"
+       height="360" frameborder="0"
+       webkitallowfullscreen mozallowfullscreen allowfullscreen>
+     </iframe> -->
+  </div>
+</div>

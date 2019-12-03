@@ -1,0 +1,30 @@
+<div class="container jumbotron">
+
+  <div class="col-md-12">
+    <table class="table">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">User Name</th>
+          <th scope="col">Full Name</th>
+          <th scope="col">City</th>
+          <th scope="col">Street</th>
+          <th scope="col">Zip-Code</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let user of user$ | async">
+        <tr>
+          <th scope="row">{{user.id}} </th>
+          <td>{{user.userName}} </td>
+          <td>{{user.firstName}} {{user.lastName}}</td>
+          <td>{{user.city}}</td>
+          <td>{{user.street}}</td>
+          <td>{{user.code}}</td>
+          <td></td>
+          <td><span><button (click)="editUser(user.id)" class="btn btn-warning">Edit</button></span></td>
+        </tr>
+      </tbody>
+
+    </table>
+  </div>
+</div>

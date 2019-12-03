@@ -1,0 +1,45 @@
+<div class="container-fluid">
+
+
+
+  <div class="row" *ngFor="let m of movies">
+    <div class="col-md-4">
+      <form [formGroup]="movieForm" (ngSubmit)="getMovie()">
+        <label for="name">Search for movies or series!</label>
+        <input #movie class="form-control" type="text" (keyup.enter)="insertMovie(movie.value)" formControlName="name">
+        <div *ngIf="name.touched && name.invalid" class="alert alert-danger">
+          <div *ngIf="name.errors.required">Please insert a title</div>
+        </div>
+        <button [disabled]="movieForm.invalid"style="margin-top:20px" class="btn btn-success" type="submit">Get some reels!</button>
+      </form>
+      <h4 style="margin-top:20px">Top 10 searches</h4>
+      <div style="margin-top:20px">
+        <ul *ngFor="let r of repeatedMovie; let i =index">
+          <li style="color:white;" *ngIf="i<10" (click)="getTop(r)">
+            {{r}}
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div *ngIf="spinner" class="spinner-border text-primary" role="status">
+      </div>
+      <div style="margin-top:40%;" *ngIf="error" class="alert alert-danger col-md-6 offset-md-3" role="alert">
+           {{notfound}} Check your spelling and try again
+      </div>
+
+      <div class="media" *ngIf="!error">
+        <img class="mr-3" src="{{m.Poster}}" alt="{{m.Title}}">
+        <div class="media-body">
+          <h5 class="mt-0">{{m.Title}}, {{m.Year}}</h5>
+          <h5 class="mt-0">{{m.Genre}}</h5>
+          <br>
+          <h5 class="mt-0">Sinopsis</h5>
+          <br>
+          <p>{{m.Plot}}</p>
+          <p> <a [routerLink]="['/movieDetail', m.Title]">See details</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

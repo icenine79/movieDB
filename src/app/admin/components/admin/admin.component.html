@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="row" *ngIf="users">
+    <div class="col-md-12">
+      <label for="list"> Welcome {{currentUser.userName}}</label>
+      <div class="row">
+        <div class="col-md-4 top" style="margin-top:20px;">
+          <input #query type="text" class="form-control" (keyup)="filter(query.value)" placeholder="search for users">
+        </div>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 jumbotron">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">User Name</th>
+                  <th scope="col">Full Name</th>
+                  <th scope="col">City</th>
+                  <th scope="col">Street</th>
+                  <th scope="col">Zip-code</th>
+                </tr>
+              </thead>
+              <tbody *ngFor=" let user of filteredUsers">
+                <tr>
+                  <th scope="row">{{user.id}}</th>
+                  <td>{{user.userName}}</td>
+                  <td>{{user.firstName}} {{user.lastName}}</td>
+                  <td>{{user.city}}</td>
+                  <td>{{user.street}}</td>
+                  <td>{{user.code}}</td>
+                  <td> <a [routerLink]="['/detail', user.id]" class="btn btn-primary">Details</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <button style="margin-bottom:20px;" class="btn btn-success" (click)="createComponent()">List of users</button>
+      <template #usersList></template>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
