@@ -1,9 +1,11 @@
-<div class="modal-header">
-  <h4 class="modal-title" id="modal-basic-title">Simple modal</h4><button type="button" class="close" aria-label="Close"
-    (click)="activeModal.dismiss('Cross click')"><span aria-hidden="true">&times;</span></button>
+<div class="modal-header" *ngIf="user">
+  <h4 class="modal-title" id="modal-basic-title">Simple modal</h4>
+  <button type="button" class="close" aria-label="Close"
+    (click)="activeModal.dismiss('Cross click')"><span aria-hidden="true">&times;</span>
+  </button>
 </div>
-<div class="modal-body">
-  <input [(ngModel)]="users.name" type="text">
-  <input [(ngModel)]="users.age" type="number">
+<div class="modal-body" >
+
+  <input type="text" [(ngModel)]="user.userName" name="user.userName" disabled>
   <button (click)="passBack()" type="submit" class="btn btn-primary w-100">Pass back</button>
 </div>

@@ -13,8 +13,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ["./user-detail.component.css"]
 })
 export class UserDetailComponent implements OnInit {
-  user: any;
-  public users = { name: "Izzat Nadiri", age: 26 };
+  public user: any;
+id:string;
   constructor(
     private userService: UserService,
     private route: ActivatedRoute,
@@ -36,21 +36,18 @@ export class UserDetailComponent implements OnInit {
   }
 
   deleteUser() {
-    this.userService.deleteUser(this.user.id).subscribe(() => {
+    this.userService.deleteUser(this.id).subscribe(() => {
       this.location.back();
     });
   }
 
   openModal() {
     const modalRef = this.modalService.open(ModalComponent);
-    modalRef.componentInstance.users = this.users;
-    modalRef.result.then(result => {
-      if (result) {
-        console.log(result);
-      }
-    });
-
-
+    modalRef.componentInstance.user = this.user;
+   modalRef.componentInstance.passEntry.subscribe((receivedEntry) => {
+     this.id=receivedEntry.id;
+     this.deleteUser();
+   })
 
 
 
