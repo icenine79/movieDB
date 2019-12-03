@@ -16,7 +16,7 @@ import { NgLoopDirective } from './helpers/directives/ng-loop.directive';
 import { DropdownDirective } from './helpers/directives/dropdown.directive';
 import { AdminModule } from './admin/admin.module';
 import { SharedModule } from './shared/shared.module';
-import { ComponentCommsModule } from './component-comms/comms.module';
+
 import { LogChildComponent } from './core/components/login/log-child/log-child.component';
 import { DetailComponent } from './core/components/detail/detail.component';
 import { UsersListComponent } from './core/components/users-list/users-list.component';
@@ -45,7 +45,7 @@ import { LogoutComponent } from './core/components/logout/logout.component';
     BrowserModule,
     AdminModule,
     SharedModule,
-    ComponentCommsModule,
+
     RatingModule
   ],
 
