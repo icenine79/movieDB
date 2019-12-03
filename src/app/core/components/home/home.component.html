@@ -10,7 +10,8 @@
         <div *ngIf="name.touched && name.invalid" class="alert alert-danger">
           <div *ngIf="name.errors.required">Please insert a title</div>
         </div>
-        <button [disabled]="movieForm.invalid"style="margin-top:20px" class="btn btn-success" type="submit">Get some reels!</button>
+        <button [disabled]="movieForm.invalid" style="margin-top:20px" class="btn btn-success" type="submit">Get some
+          reels!</button>
       </form>
       <h4 style="margin-top:20px">Top 10 searches</h4>
       <div style="margin-top:20px">
@@ -25,11 +26,13 @@
       <div *ngIf="spinner" class="spinner-border text-primary" role="status">
       </div>
       <div style="margin-top:40%;" *ngIf="error" class="alert alert-danger col-md-6 offset-md-3" role="alert">
-           {{notfound}} Check your spelling and try again
+        {{notfound}} Check your spelling and try again
       </div>
 
       <div class="media" *ngIf="!error">
-        <img class="mr-3" src="{{m.Poster}}" alt="{{m.Title}}">
+        <div class="img-wrapper" style="width:45%">
+          <img class="mr-3 img-fluid" src="{{m.Poster}}" alt="{{m.Title}}">
+        </div>
         <div class="media-body">
           <h5 class="mt-0">{{m.Title}}, {{m.Year}}</h5>
           <h5 class="mt-0">{{m.Genre}}</h5>
