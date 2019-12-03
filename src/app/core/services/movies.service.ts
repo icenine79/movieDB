@@ -12,14 +12,14 @@ export class MoviesService {
 
   getMovies(name: string, year?: string): Observable<any> {
     let shortPlot = this.http.get(
-      "http://www.omdbapi.com/?t=" +
+      "https://www.omdbapi.com/?t=" +
         name +
         "&plot=short&y=" +
         year +
         "&apikey=87c31e60"
     );
     let fullPlot = this.http.get(
-      "http://www.omdbapi.com/?t=" + name + "&plot=full&apikey=87c31e60"
+      "https://www.omdbapi.com/?t=" + name + "&plot=full&apikey=87c31e60"
     );
     return forkJoin([shortPlot, fullPlot]);
   }
@@ -27,7 +27,7 @@ export class MoviesService {
   getEpisode(name: string, episode: string) {
     this.name = name;
     return this.http.get(
-      "http://www.omdbapi.com/?t=" +
+      "https://www.omdbapi.com/?t=" +
         name +
         "&Season=" +
         episode +

@@ -23,6 +23,8 @@ import { UsersListComponent } from './core/components/users-list/users-list.comp
 import { RatingModule } from 'ng-starrating';
 import { SafeHtmlPipe } from "./helpers/pipes/sanitizer";
 import { LogoutComponent } from './core/components/logout/logout.component';
+import { MoviesService } from './core/services/movies.service';
+import { CacheService } from './core/services/cache.service';
 
 @NgModule({
   declarations: [
@@ -54,7 +56,9 @@ import { LogoutComponent } from './core/components/logout/logout.component';
     //tokenInterceptor,
     UserService,
     fakeBackendProvider,
-    errorInterceptor
+    errorInterceptor,
+    MoviesService,
+    CacheService
   ],
 
   bootstrap: [AppComponent]
