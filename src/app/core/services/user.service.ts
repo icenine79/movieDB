@@ -23,5 +23,17 @@ export class UserService {
     console.log(credentials)
     return this.http.post(`/users/register`, credentials)
   }
+ //NODE
+
+/*
+getNodeUsers():Observable<User[]>{
+  return this.http
+    .get<User[]>(nodeBaseURL + "/api/user")
+    .pipe(map(response => response['users']));
+}
+  nodeRegister(credentials: any) {
+    console.log(credentials);
+    return this.http.post(nodeBaseURL + `/api/user/signup`, credentials);
+  } */
 
 }
