@@ -5,7 +5,6 @@ import { MoviesService } from "../../services/movies.service";
 import { shuffle, moviesArray } from "../../../shared/globals";
 import { Movie } from "../../../shared/models/movie";
 import { Subscription } from "rxjs";
-import { CacheService } from '../../services/cache.service';
 
 @Component({
   selector: "app-home",
@@ -24,7 +23,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   topMovie$:any
   constructor(
     private movieService: MoviesService,
-    private cacheService:CacheService,
     private fb: FormBuilder) {}
 
   ngOnInit() {
