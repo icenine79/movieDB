@@ -1,11 +1,17 @@
-<div class="modal-header" *ngIf="user">
-  <h4 class="modal-title" id="modal-basic-title">Simple modal</h4>
-  <button type="button" class="close" aria-label="Close"
-    (click)="activeModal.dismiss('Cross click')"><span aria-hidden="true">&times;</span>
+
+
+<div class="modal-header" *ngIf=user>
+  <h4 class="modal-title" id="modal-title">Profile deletion</h4>
+  <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
   </button>
 </div>
-<div class="modal-body" >
+<div class="modal-body">
+ <input type="text" [(ngModel)]="user.userName" name="user.userName">
+    <span class="text-danger">This operation can not be undone.</span>
 
-  <input type="text" [(ngModel)]="user.userName" name="user.userName" disabled>
-  <button (click)="passBack()" type="submit" class="btn btn-primary w-100">Pass back</button>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-secondary" (click)="activeModal.dismiss('cancel click')">Cancel</button>
+  <button type="button" class="btn btn-danger" (click)="passBack()">Ok</button>
 </div>

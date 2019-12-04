@@ -1,5 +1,5 @@
 <div class="container jumbotron" *ngIf="user">
-  <button (click)="openModal()">open the modal</button>
+
     <div class="row">
         <div class="card" style="width: 18rem;">
           <div class="card-header">
@@ -13,7 +13,6 @@
             <li class="list-group-item">Zip-Code: {{user.code}}</li>
           </ul>
         </div>
-        <div class="col-md-3"> <button class="btn btn-danger" (click)="deleteUser()">Delete User</button></div>
-
+        <div class="col-md-3"> <button class="btn btn-danger" (click)="openModal()">Delete User</button></div>
     </div>
 </div>
