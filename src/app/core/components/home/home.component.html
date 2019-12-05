@@ -1,7 +1,5 @@
 <div class="container-fluid">
 
-
-
   <div class="row" *ngFor="let m of movies">
     <div class="col-md-4">
       <form [formGroup]="movieForm" (ngSubmit)="getMovie()">
@@ -30,6 +28,9 @@
       </div>
 
       <div class="media" *ngIf="!error">
+         <div class="recommended-wrapper" *ngIf="movieRate>=8.0">
+    <img class="img-fluid" src="assets/stamp.png" alt="recommended">
+  </div>
         <div class="img-wrapper" style="width:45%">
           <img class="mr-3 img-fluid" src="{{m.Poster}}" alt="{{m.Title}}">
         </div>

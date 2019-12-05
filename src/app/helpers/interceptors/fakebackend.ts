@@ -87,10 +87,11 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         userName: user.userName,
         firstName: user.firstName,
         lastName: user.lastName,
+        email: user.email,
+        phone: user.phone,
         city: user.city,
         street: user.street,
         code: user.code,
-        picture: user.picture,
         token: "jwt-token"
       });
     }

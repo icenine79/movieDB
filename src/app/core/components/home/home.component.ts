@@ -12,18 +12,18 @@ import { Subscription } from "rxjs";
   styleUrls: ["./home.component.css"]
 })
 export class HomeComponent implements OnInit, OnDestroy {
-   movies: any;
-   movieForm: FormGroup;
-   storedMovies: any[] = [];
-   spinner: boolean;
-   repeatedMovie: any;
-   subscription: Subscription;
-   notfound: string;
-   error: boolean;
-  topMovie$:any
-  constructor(
-    private movieService: MoviesService,
-    private fb: FormBuilder) {}
+  movies: any;
+  movieForm: FormGroup;
+  storedMovies: any[] = [];
+  spinner: boolean;
+  repeatedMovie: any;
+  subscription: Subscription;
+  notfound: string;
+  error: boolean;
+  topMovie$: any;
+  movieRate: number;
+
+  constructor(private movieService: MoviesService, private fb: FormBuilder) {}
 
   ngOnInit() {
     this.movieForm = this.fb.group({
@@ -31,12 +31,17 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
     this.getTop("Belle de Jour");
     //Get movies from backend
-    this.movieService
-    .getStoredMovies().subscribe(data => {
+    this.movieService.getStoredMovies().subscribe(data => {
       this.storedMovies = data;
       this.duplicatedMovies();
     });
   }
+
+  convert(string: string) {
+    let number = parseFloat(string);
+    return number;
+  }
+
   get name() {
     return this.movieForm.get("name");
   }
@@ -72,26 +77,26 @@ export class HomeComponent implements OnInit, OnDestroy {
       .subscribe(() => {});
   }
 
-
   getMovie() {
     this.spinner = true;
     //API CALL
-    this.subscription = this.movieService
+    (this.subscription = this.movieService
       .getMovies(this.name.value)
       .subscribe((dataList: Movie) => {
         this.movies = Array.of(dataList[0]);
         this.spinner = false;
-        var error: any = this.movies.map(error => error.Error);
-        var title: any = this.movies.map(title => title.Title);
+
+        let error: any = this.movies.map(error => error.Error);
 
         if (error[0]) {
           this.notfound = error[0];
           this.error = true;
         } else {
           this.error = false;
+          let rating = this.movies.map(rating => rating.imdbRating.toString());
+          this.movieRate = this.convert(rating);
         }
-
-      }),
+      })),
       error => console.log(error);
   }
 

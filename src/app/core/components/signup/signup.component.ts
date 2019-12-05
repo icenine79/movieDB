@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { PasswordValidators } from "./password.validator";
 import { UsernameValidators, NameValidators } from "./username.validator";
 import { User } from 'src/app/shared/models/user';
+import { EmailValidator } from './email.validator';
 
 @Component({
   selector: "app-signup",
@@ -25,32 +26,30 @@ export class SignupComponent implements OnInit {
 
   ngOnInit() {
     this.createForm();
-    this.route.paramMap.subscribe(params=>{
-      const id= params.get('id')
+    this.route.paramMap.subscribe(params => {
+      const id = params.get("id");
 
-      this.getUser(id)
-
-    })
-
+      this.getUser(id);
+    });
   }
-  getUser(id:string | number){
-    this.userService.getUser(id).subscribe((user:User)=>{
-      this.editUser(user), (err:any)=>console.log(err)
-    })
+  getUser(id: string | number) {
+    this.userService.getUser(id).subscribe((user: User) => {
+      this.editUser(user), (err: any) => console.log(err);
+    });
   }
 
-editUser(user:User){
-  this.registerForm.patchValue({
-    firstName:user.firstName,
-    lastName: user.lastName,
-    userName: user.userName,
-    password: user.password,
-    retype: user.password,
-    city: user.city,
-    street: user.street,
-    code: user.code
-  });
-}
+  editUser(user: User) {
+    this.registerForm.patchValue({
+      firstName: user.firstName,
+      lastName: user.lastName,
+      userName: user.userName,
+      password: user.password,
+      retype: user.password,
+      city: user.city,
+      street: user.street,
+      code: user.code
+    });
+  }
 
   get firstName() {
     return this.registerForm.get("firstName");
@@ -76,13 +75,18 @@ editUser(user:User){
   get code() {
     return this.registerForm.get("code");
   }
+  get email() {
+    return this.registerForm.get("email");
+  }
+  get phone() {
+    return this.registerForm.get("phone");
+  }
 
   onSubmit() {
     if (this.registerForm.invalid) return;
 
     this.userService.register(this.registerForm.value).subscribe(
       data => {
-
         this.router.navigate(["/login"]);
       },
       error => {
@@ -91,6 +95,18 @@ editUser(user:User){
       }
     );
   }
+addAdress(){
+  (<FormArray>this.registerForm.get("adress")).push(this.addAdressGroup());
+}
+
+addAdressGroup(){
+  return this.fb.group({
+    city: ["", Validators.required],
+        street: ["", Validators.required],
+        code: ["", Validators.required]
+  })
+}
+
 
   createForm() {
     this.registerForm = this.fb.group(
@@ -103,9 +119,15 @@ editUser(user:User){
         lastName: ["", [Validators.required]],
         userName: [
           "",
-          Validators.required/* ,
-          UsernameValidators.cannotContainSpace */
+          Validators.required  ,
+          UsernameValidators.cannotContainSpace
         ],
+       /*  email: ["", [Validators.required, EmailValidator.invalidEmail]],
+        phone: ["", [Validators.required]],
+          adress: this.fb.array([
+
+          ]), */
+
         city: ["", Validators.required],
         street: ["", Validators.required],
         code: ["", Validators.required],

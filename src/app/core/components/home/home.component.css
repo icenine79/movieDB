@@ -5,3 +5,14 @@ body {
 }
 
 li{cursor:pointer}
+
+.recommended-wrapper{
+  position:absolute;
+  z-index:999;
+  width:12%;
+  top:2%;
+  left:2%;
+  transform:translate((-2%,-2%))
+}
+
+
