@@ -5,11 +5,13 @@ import { MoviesService } from "../../services/movies.service";
 import { shuffle, moviesArray } from "../../../shared/globals";
 import { Movie } from "../../../shared/models/movie";
 import { Subscription } from "rxjs";
+import { Fader } from 'src/app/shared/animations';
 
 @Component({
   selector: "app-home",
   templateUrl: "./home.component.html",
-  styleUrls: ["./home.component.css"]
+  styleUrls: ["./home.component.css"],
+  animations:[Fader.animations]
 })
 export class HomeComponent implements OnInit, OnDestroy {
   movies: any;
@@ -94,7 +96,8 @@ export class HomeComponent implements OnInit, OnDestroy {
         } else {
           this.error = false;
           let rating = this.movies.map(rating => rating.imdbRating.toString());
-          this.movieRate = this.convert(rating);
+
+
         }
       })),
       error => console.log(error);
