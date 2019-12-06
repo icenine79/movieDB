@@ -28,7 +28,7 @@
       </div>
 
       <div class="media" *ngIf="!error">
-         <div class="recommended-wrapper" *ngIf="movieRate>=8.0">
+         <div  @fade class="recommended-wrapper" *ngIf="movieRate>=8.0 ">
     <img class="img-fluid" src="assets/stamp.png" alt="recommended">
   </div>
         <div class="img-wrapper" style="width:45%">
