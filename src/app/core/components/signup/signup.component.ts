@@ -43,6 +43,8 @@ export class SignupComponent implements OnInit {
       firstName: user.firstName,
       lastName: user.lastName,
       userName: user.userName,
+      email:user.email,
+      phone: user.phone,
       password: user.password,
       retype: user.password,
       city: user.city,
@@ -95,9 +97,7 @@ export class SignupComponent implements OnInit {
       }
     );
   }
-addAdress(){
-  (<FormArray>this.registerForm.get("adress")).push(this.addAdressGroup());
-}
+
 
 addAdressGroup(){
   return this.fb.group({
@@ -122,11 +122,11 @@ addAdressGroup(){
           Validators.required  ,
           UsernameValidators.cannotContainSpace
         ],
-       /*  email: ["", [Validators.required, EmailValidator.invalidEmail]],
+         email: ["", [Validators.required, EmailValidator.invalidEmail]],
         phone: ["", [Validators.required]],
           adress: this.fb.array([
 
-          ]), */
+          ]),
 
         city: ["", Validators.required],
         street: ["", Validators.required],

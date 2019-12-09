@@ -5,7 +5,7 @@ export const Fader = {
     trigger("fade", [
       transition("void => *", [
         style({ opacity: 0 }),
-        animate(1500, style({ opacity: 1 }))
+        animate(1000, style({ opacity: 1 }))
       ])
     ])
   ]
