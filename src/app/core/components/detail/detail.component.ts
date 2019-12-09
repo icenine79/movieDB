@@ -2,8 +2,9 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { switchMap } from "rxjs/operators";
 import { MoviesService } from "../../services/movies.service";
-import { Movie } from 'src/app/shared/models/movie';
-import { DomSanitizer } from "@angular/platform-browser";
+import { Movie } from "src/app/shared/models/movie";
+import { FormGroup, FormBuilder, Validators, FormArray } from "@angular/forms";
+
 @Component({
   selector: "app-detail",
   templateUrl: "./detail.component.html",
@@ -18,11 +19,13 @@ export class DetailComponent implements OnInit {
   episode: boolean;
   id: string;
   plot: any;
-
+  tickets: boolean = false;
+  ticketsForm: FormGroup;
+  submitted = false;
   constructor(
     private movieService: MoviesService,
     private route: ActivatedRoute,
-    public sanitizer: DomSanitizer
+    private fb: FormBuilder
   ) {}
 
   ngOnInit() {
@@ -37,9 +40,9 @@ export class DetailComponent implements OnInit {
         this.movie = movieList[0];
         this.plot = movieList[1];
         this.seasons = movieList[0];
-        console.log(this.movie);
         this.seasons = +this.seasons["totalSeasons"];
         this.showDropDown();
+        this.ticketsFormBuild();
       });
   }
 
@@ -52,6 +55,69 @@ export class DetailComponent implements OnInit {
     for (let i = 1; i < this.seasons + 1; i++) {
       this.test.push(i);
     }
+  }
+
+  ticketsFormBuild() {
+    if (!this.seasons) {
+      this.tickets = true;
+      this.ticketsForm = this.fb.group({
+        numberOfTickets: ["", Validators.required],
+        tickets: new FormArray([])
+      });
+    }else{
+      this.tickets=false;
+    }
+  }
+
+  get f() {
+    return this.ticketsForm.controls;
+  }
+  get t() {
+    return this.f.tickets as FormArray;
+  }
+
+  onChangeTickets(e) {
+    const numberOfTickets = e.target.value || 0;
+    if (this.t.length < numberOfTickets) {
+      for (let i = this.t.length; i < numberOfTickets; i++) {
+        this.t.push(
+          this.fb.group({
+            name: ["", Validators.required],
+            email: ["", [Validators.required, Validators.email]]
+          })
+        );
+      }
+    } else {
+      for (let i = this.t.length; i >= numberOfTickets; i--) {
+        this.t.removeAt(i);
+      }
+    }
+  }
+  onSubmit() {
+    this.submitted = true;
+
+    // stop here if form is invalid
+    if (this.ticketsForm.invalid) {
+      return;
+    }
+
+    // display form values on success
+    alert(
+      "SUCCESS!! :-)\n\n" + JSON.stringify(this.ticketsForm.value, null, 4)
+    );
+  }
+
+  onReset() {
+    // reset whole form back to initial state
+    this.submitted = false;
+    this.ticketsForm.reset();
+    this.t.clear();
+  }
+
+  onClear() {
+    // clear errors and reset ticket fields
+    this.submitted = false;
+    this.t.reset();
   }
 
   searchEpisode(search) {
