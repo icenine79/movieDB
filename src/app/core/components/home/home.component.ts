@@ -81,7 +81,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   getMovie() {
     this.spinner = true;
-    //API CALL
+    //API CALL NAO ESQUECER PASSAR OS FILMES PARA O DETAIL
     (this.subscription = this.movieService
       .getMovies(this.name.value)
       .subscribe((dataList: Movie) => {
@@ -95,8 +95,8 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.error = true;
         } else {
           this.error = false;
-          let rating = this.movies.map(rating => rating.imdbRating.toString());
-
+          this.movieRate = this.movies.map(rating => rating.imdbRating.toString());
+          console.log(this.movieRate)
 
         }
       })),

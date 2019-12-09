@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { switchMap } from "rxjs/operators";
 import { MoviesService } from "../../services/movies.service";
@@ -22,6 +22,8 @@ export class DetailComponent implements OnInit {
   tickets: boolean = false;
   ticketsForm: FormGroup;
   submitted = false;
+  @Input('movies') movies:any;
+  @Input('movieRate') movieRate:number;
   constructor(
     private movieService: MoviesService,
     private route: ActivatedRoute,
@@ -29,6 +31,7 @@ export class DetailComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    console.log(this.movieRate)
     this.route.paramMap
       .pipe(
         switchMap(params => {
