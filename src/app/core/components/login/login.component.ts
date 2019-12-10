@@ -19,8 +19,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
   message:string;
   loginForm: FormGroup;
   errorMessage:boolean;
-  @ViewChild('user', {static: false})
-  userNameRef:ElementRef
+
   trailer:any
    constructor(
     private fb: FormBuilder,
@@ -30,9 +29,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
   }
 
-ngAfterViewInit(){
-  this.userNameRef.nativeElement.focus();
-}
+
 
   ngOnInit() {
     this.loginForm = this.fb.group({

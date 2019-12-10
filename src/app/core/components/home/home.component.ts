@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { MoviesService } from "../../services/movies.service";
@@ -13,7 +13,7 @@ import { Fader } from 'src/app/shared/animations';
   styleUrls: ["./home.component.css"],
   animations:[Fader.animations]
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   movies: any;
   movieForm: FormGroup;
   storedMovies: any[] = [];
@@ -24,7 +24,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   error: boolean;
   topMovie$: any;
   movieRate: number;
-
+  @ViewChild('movie', {static: false})
+  userNameRef:ElementRef
   constructor(private movieService: MoviesService, private fb: FormBuilder) {}
 
   ngOnInit() {
@@ -38,7 +39,12 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.duplicatedMovies();
     });
   }
+  ngAfterViewInit(){
+    setTimeout(()=>{
+      this.userNameRef.nativeElement.focus();
+    },1000)
 
+  }
   convert(string: string) {
     let number = parseFloat(string);
     return number;
