@@ -22,8 +22,8 @@ export class DetailComponent implements OnInit {
   tickets: boolean = false;
   ticketsForm: FormGroup;
   submitted = false;
-  @Input('movies') movies:any;
-  @Input('movieRate') movieRate:number;
+  ticketMessage=false;
+
   constructor(
     private movieService: MoviesService,
     private route: ActivatedRoute,
@@ -31,7 +31,7 @@ export class DetailComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log(this.movieRate)
+
     this.route.paramMap
       .pipe(
         switchMap(params => {
@@ -98,16 +98,15 @@ export class DetailComponent implements OnInit {
   }
   onSubmit() {
     this.submitted = true;
+    this.ticketMessage=true;
+    setTimeout(()=>{
+      this.ticketMessage=false;
+    },2000)
 
     // stop here if form is invalid
     if (this.ticketsForm.invalid) {
       return;
     }
-
-    // display form values on success
-    alert(
-      "SUCCESS!! :-)\n\n" + JSON.stringify(this.ticketsForm.value, null, 4)
-    );
   }
 
   onReset() {

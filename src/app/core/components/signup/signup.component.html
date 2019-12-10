@@ -95,6 +95,14 @@
         </div>
         <button #signup [disabled]="registerForm.invalid" class="btn btn-primary" type="submit">Sign Up</button>
       </form>
+
+    </div>
+  </div>
+  <div class="row"  *ngIf="registered">
+    <div class="col-md-6 offset-md-3">
+      <div class="alert alert-success" role="alert">
+        User successfuly registrated! Now redirecting to login page
+      </div>
     </div>
   </div>
 </div>

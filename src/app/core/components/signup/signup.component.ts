@@ -16,7 +16,7 @@ export class SignupComponent implements OnInit {
   registerForm: FormGroup;
   errorMessage: boolean;
   message: string;
-
+  registered=false
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
@@ -45,8 +45,6 @@ export class SignupComponent implements OnInit {
       userName: user.userName,
       email:user.email,
       phone: user.phone,
-      password: user.password,
-      retype: user.password,
       city: user.city,
       street: user.street,
       code: user.code
@@ -86,27 +84,18 @@ export class SignupComponent implements OnInit {
 
   onSubmit() {
     if (this.registerForm.invalid) return;
+    this.registered=true
+    this.userService.register(this.registerForm.value)
+    .subscribe(data=>{
 
-    this.userService.register(this.registerForm.value).subscribe(
-      data => {
+      setTimeout(()=>{
         this.router.navigate(["/login"]);
-      },
-      error => {
-        this.errorMessage = true;
-        console.log(error);
-      }
-    );
+      },2000)
+    }, error => {
+      this.errorMessage = true;
+      console.log(error);
+    } )
   }
-
-
-addAdressGroup(){
-  return this.fb.group({
-    city: ["", Validators.required],
-        street: ["", Validators.required],
-        code: ["", Validators.required]
-  })
-}
-
 
   createForm() {
     this.registerForm = this.fb.group(
@@ -122,11 +111,8 @@ addAdressGroup(){
           Validators.required  ,
           UsernameValidators.cannotContainSpace
         ],
-         email: ["", [Validators.required, EmailValidator.invalidEmail]],
+         email: ["", [Validators.required]],
         phone: ["", [Validators.required]],
-          adress: this.fb.array([
-
-          ]),
 
         city: ["", Validators.required],
         street: ["", Validators.required],
