@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../../shared/services/auth.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -15,7 +15,7 @@ import { Fader } from "../../../shared/animations"
   styleUrls: ['./login.component.css'],
   animations:[Fader.animations]
 })
-export class LoginComponent implements OnInit, AfterViewInit {
+export class LoginComponent implements OnInit {
   message:string;
   loginForm: FormGroup;
   errorMessage:boolean;
