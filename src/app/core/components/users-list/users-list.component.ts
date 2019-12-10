@@ -20,6 +20,7 @@ export class UsersListComponent implements OnInit {
 
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
+    console.log(JSON.stringify(this.user))
   }
   editUser(id: string | number) {
     this.router.navigate(["/edit", id]);
