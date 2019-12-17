@@ -14,13 +14,13 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class UserDetailComponent implements OnInit {
   public user: any;
-id:string;
+  id: string;
   constructor(
     private userService: UserService,
     private route: ActivatedRoute,
     private location: Location,
     private modalService: NgbModal
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.route.paramMap
@@ -44,10 +44,10 @@ id:string;
   openModal() {
     const modalRef = this.modalService.open(ModalComponent);
     modalRef.componentInstance.user = this.user;
-   modalRef.componentInstance.passEntry.subscribe((receivedEntry) => {
-     this.id=receivedEntry.id;
-     this.deleteUser();
-   })
+    modalRef.componentInstance.passEntry.subscribe((receivedEntry) => {
+      this.id = receivedEntry.id;
+      this.deleteUser();
+    })
 
 
 

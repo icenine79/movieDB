@@ -18,5 +18,6 @@ export class ModalComponent implements OnInit {
 
   passBack() {
     this.passEntry.emit(this.user);
+    this.activeModal.dismiss();
   }
 }

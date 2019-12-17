@@ -6,7 +6,6 @@ import { LoginComponent } from './core/components/login/login.component';
 import { AuthGuardService } from './core/services/guards/auth-guard.service';
 import { DetailComponent } from './core/components/detail/detail.component';
 import { UsersListComponent } from './core/components/users-list/users-list.component';
-import { LogoutComponent } from './core/components/logout/logout.component';
 
 
 export const routes: Routes = [
@@ -16,7 +15,6 @@ export const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'list', component: UsersListComponent},
   {path: 'edit/:id', component:SignupComponent},
-  {path:'logout', component:LogoutComponent},
   {path:'', redirectTo:'login', pathMatch:'full'},
   {path:'**', component: LoginComponent}
 

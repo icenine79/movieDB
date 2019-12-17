@@ -11,7 +11,7 @@
         <button [disabled]="movieForm.invalid" style="margin-top:20px" class="btn btn-success" type="submit">Get some
           reels!</button>
       </form>
-      <h4 style="margin-top:20px">Top 10 searches</h4>
+      <h4 style="margin-top:20px" *ngIf="repeatedMovie.length>2">Top 10 searches</h4>
       <div style="margin-top:20px">
         <ul *ngFor="let r of repeatedMovie; let i =index">
           <li style="color:white;" *ngIf="i<10" (click)="getTop(r)">

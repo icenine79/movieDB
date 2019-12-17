@@ -22,7 +22,6 @@ import { DetailComponent } from './core/components/detail/detail.component';
 import { UsersListComponent } from './core/components/users-list/users-list.component';
 import { RatingModule } from 'ng-starrating';
 import { SafeHtmlPipe } from "./helpers/pipes/sanitizer";
-import { LogoutComponent } from './core/components/logout/logout.component';
 import { MoviesService } from './core/services/movies.service';
 import { CacheService } from './core/services/cache.service';
 
@@ -40,8 +39,7 @@ import { CacheService } from './core/services/cache.service';
     LogChildComponent,
     DetailComponent,
     UsersListComponent,
-    SafeHtmlPipe,
-    LogoutComponent
+    SafeHtmlPipe
   ],
   imports: [
     BrowserModule,

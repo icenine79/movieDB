@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { MoviesService } from "../../services/movies.service";
@@ -13,7 +13,7 @@ import { Fader } from 'src/app/shared/animations';
   styleUrls: ["./home.component.css"],
   animations:[Fader.animations]
 })
-export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
+export class HomeComponent implements OnInit, OnDestroy {
   movies: any;
   movieForm: FormGroup;
   storedMovies: any[] = [];
@@ -24,27 +24,21 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   error: boolean;
   topMovie$: any;
   movieRate: number;
-  @ViewChild('movie', {static: false})
-  userNameRef:ElementRef
+  
   constructor(private movieService: MoviesService, private fb: FormBuilder) {}
 
   ngOnInit() {
     this.movieForm = this.fb.group({
       name: ["", Validators.required]
     });
-    this.getTop("Belle de Jour");
+    this.getTop("Under the Dome");
     //Get movies from backend
     this.movieService.getStoredMovies().subscribe(data => {
       this.storedMovies = data;
       this.duplicatedMovies();
     });
   }
-  ngAfterViewInit(){
-    setTimeout(()=>{
-      this.userNameRef.nativeElement.focus();
-    },1000)
-
-  }
+ 
   convert(string: string) {
     let number = parseFloat(string);
     return number;
@@ -87,23 +81,19 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
 
   getMovie() {
     this.spinner = true;
-    //API CALL NAO ESQUECER PASSAR OS FILMES PARA O DETAIL
+    
     (this.subscription = this.movieService
       .getMovies(this.name.value)
       .subscribe((dataList: Movie) => {
         this.movies = Array.of(dataList[0]);
         this.spinner = false;
-
         let error: any = this.movies.map(error => error.Error);
-
         if (error[0]) {
           this.notfound = error[0];
           this.error = true;
         } else {
           this.error = false;
           this.movieRate = this.movies.map(rating => rating.imdbRating.toString());
-          console.log(this.movieRate)
-
         }
       })),
       error => console.log(error);

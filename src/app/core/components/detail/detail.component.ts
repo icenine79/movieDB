@@ -1,9 +1,9 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { switchMap } from "rxjs/operators";
 import { MoviesService } from "../../services/movies.service";
 import { Movie } from "src/app/shared/models/movie";
-import { FormGroup, FormBuilder, Validators, FormArray } from "@angular/forms";
+import {  FormBuilder } from "@angular/forms";
 
 @Component({
   selector: "app-detail",
@@ -19,10 +19,7 @@ export class DetailComponent implements OnInit {
   episode: boolean;
   id: string;
   plot: any;
-  tickets: boolean = false;
-  ticketsForm: FormGroup;
-  submitted = false;
-  ticketMessage=false;
+ 
 
   constructor(
     private movieService: MoviesService,
@@ -45,7 +42,6 @@ export class DetailComponent implements OnInit {
         this.seasons = movieList[0];
         this.seasons = +this.seasons["totalSeasons"];
         this.showDropDown();
-        this.ticketsFormBuild();
       });
   }
 
@@ -58,68 +54,6 @@ export class DetailComponent implements OnInit {
     for (let i = 1; i < this.seasons + 1; i++) {
       this.test.push(i);
     }
-  }
-
-  ticketsFormBuild() {
-    if (!this.seasons) {
-      this.tickets = true;
-      this.ticketsForm = this.fb.group({
-        numberOfTickets: ["", Validators.required],
-        tickets: new FormArray([])
-      });
-    }else{
-      this.tickets=false;
-    }
-  }
-
-  get f() {
-    return this.ticketsForm.controls;
-  }
-  get t() {
-    return this.f.tickets as FormArray;
-  }
-
-  onChangeTickets(e) {
-    const numberOfTickets = e.target.value || 0;
-    if (this.t.length < numberOfTickets) {
-      for (let i = this.t.length; i < numberOfTickets; i++) {
-        this.t.push(
-          this.fb.group({
-            name: ["", Validators.required],
-            email: ["", [Validators.required, Validators.email]]
-          })
-        );
-      }
-    } else {
-      for (let i = this.t.length; i >= numberOfTickets; i--) {
-        this.t.removeAt(i);
-      }
-    }
-  }
-  onSubmit() {
-    this.submitted = true;
-    this.ticketMessage=true;
-    setTimeout(()=>{
-      this.ticketMessage=false;
-    },2000)
-
-    // stop here if form is invalid
-    if (this.ticketsForm.invalid) {
-      return;
-    }
-  }
-
-  onReset() {
-    // reset whole form back to initial state
-    this.submitted = false;
-    this.ticketsForm.reset();
-    this.t.clear();
-  }
-
-  onClear() {
-    // clear errors and reset ticket fields
-    this.submitted = false;
-    this.t.reset();
   }
 
   searchEpisode(search) {
