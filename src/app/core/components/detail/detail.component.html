@@ -1,26 +1,32 @@
 <div class="container">
-  <div class="row"  *ngIf="movie">
+
+  <div class="row" *ngIf="movie">
     <div class="col-md-4">
 
 
-        <img class="mr-3" src="{{movie.Poster}}" alt="{{movie.Title}}">
-    </div>
-        <div class="col-md-8">
-          <h3 class="mt-0">{{movie.Title}}</h3>
-          <br>
-          <h5 class="mt-0">Plot</h5>
-          <p class="text-justify">{{plot.Plot}}</p>
-          <br>
-          <h5 class="mt-0"><b>Directed by</b> {{movie.Director}}</h5>
-          <br>
-          <h5 class="mt-0"><b>Written by</b> {{movie.Writer}}</h5>
-          <br>
-          <h5 class="mt-0"><b>Cast:</b> {{movie.Actors}}</h5>
-          <br>
-          <h5 class="mt-0"><b>Awards: </b> {{movie.Awards}}</h5>
+      <img class="mr-3" src="{{movie.Poster}}" alt="{{movie.Title}}">
+      <div class="row">
+        <div class="col">
+          <button class="btn btn-warning" (click)="goBack()">Back to home</button>
         </div>
       </div>
-      <div class="row">
+    </div>
+    <div class="col-md-8">
+      <h3 class="mt-0">{{movie.Title}}</h3>
+      <br>
+      <h5 class="mt-0">Plot</h5>
+      <p class="text-justify">{{plot.Plot}}</p>
+      <br>
+      <h5 class="mt-0"><b>Directed by</b> {{movie.Director}}</h5>
+      <br>
+      <h5 class="mt-0"><b>Written by</b> {{movie.Writer}}</h5>
+      <br>
+      <h5 class="mt-0"><b>Cast:</b> {{movie.Actors}}</h5>
+      <br>
+      <h5 class="mt-0"><b>Awards: </b> {{movie.Awards}}</h5>
+    </div>
+  </div>
+  <div class="row">
     <div class="col-md-4">
       <div *ngIf="dropdown && movie.totalSeasons">
         <label>Select a season</label>
@@ -50,5 +56,5 @@
       </ul>
     </div>
   </div>
-  </div>
-
+ 
+</div>

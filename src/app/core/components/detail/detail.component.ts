@@ -4,6 +4,8 @@ import { switchMap } from "rxjs/operators";
 import { MoviesService } from "../../services/movies.service";
 import { Movie } from "src/app/shared/models/movie";
 import {  FormBuilder } from "@angular/forms";
+import {Location} from '@angular/common';
+
 
 @Component({
   selector: "app-detail",
@@ -24,7 +26,8 @@ export class DetailComponent implements OnInit {
   constructor(
     private movieService: MoviesService,
     private route: ActivatedRoute,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private location: Location
   ) {}
 
   ngOnInit() {
@@ -65,4 +68,14 @@ export class DetailComponent implements OnInit {
       console.log(this.episodes);
     });
   }
+
+
+goBack(){
+this.location.back()
+}
+
+
+
+
+
 }
