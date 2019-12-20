@@ -11,6 +11,6 @@ export class User {
     street:string;
     code:string;
     token?: string;
-    rating?:number
+    
 
 }
