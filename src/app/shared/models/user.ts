@@ -6,6 +6,7 @@ export class User {
     lastName: string;
     email:string;
     phone:string;
+    country:string;
     city:string;
     street:string;
     code:string;

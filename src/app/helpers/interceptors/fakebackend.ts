@@ -89,6 +89,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         lastName: user.lastName,
         email: user.email,
         phone: user.phone,
+        country: user.country,
         city: user.city,
         street: user.street,
         code: user.code,

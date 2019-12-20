@@ -16,13 +16,16 @@ export class SignupComponent implements OnInit {
   registerForm: FormGroup;
   errorMessage: boolean;
   message: string;
-  registered=false
+  registered = false;
+  testForm: FormGroup
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
     private router: Router,
     private route: ActivatedRoute
-  ) {}
+  ) {
+
+  }
 
   ngOnInit() {
     this.createForm();
@@ -43,7 +46,7 @@ export class SignupComponent implements OnInit {
       firstName: user.firstName,
       lastName: user.lastName,
       userName: user.userName,
-      email:user.email,
+      email: user.email,
       phone: user.phone,
       city: user.city,
       street: user.street,
@@ -66,15 +69,6 @@ export class SignupComponent implements OnInit {
   get retype() {
     return this.registerForm.get("retype");
   }
-  get city() {
-    return this.registerForm.get("city");
-  }
-  get street() {
-    return this.registerForm.get("street");
-  }
-  get code() {
-    return this.registerForm.get("code");
-  }
   get email() {
     return this.registerForm.get("email");
   }
@@ -84,17 +78,17 @@ export class SignupComponent implements OnInit {
 
   onSubmit() {
     if (this.registerForm.invalid) return;
-    this.registered=true
+    this.registered = true
     this.userService.register(this.registerForm.value)
-    .subscribe(data=>{
+      .subscribe(data => {
 
-      setTimeout(()=>{
-        this.router.navigate(["/login"]);
-      },2000)
-    }, error => {
-      this.errorMessage = true;
-      console.log(error);
-    } )
+        setTimeout(() => {
+          this.router.navigate(["/login"]);
+        }, 2000)
+      }, error => {
+        this.errorMessage = true;
+        console.log(error);
+      })
   }
 
   createForm() {
@@ -108,15 +102,12 @@ export class SignupComponent implements OnInit {
         lastName: ["", [Validators.required]],
         userName: [
           "",
-          Validators.required  ,
+          Validators.required,
           UsernameValidators.cannotContainSpace
         ],
-         email: ["", [Validators.required]],
+        email: ["", [Validators.required]],
         phone: ["", [Validators.required]],
-
-        city: ["", Validators.required],
-        street: ["", Validators.required],
-        code: ["", Validators.required],
+        adress: this.fb.array([]),
         password: [null, [Validators.required, Validators.minLength(5)]],
         retype: ["", Validators.required]
       },
@@ -125,4 +116,40 @@ export class SignupComponent implements OnInit {
       }
     );
   }
+
+  addAdress() {
+    const adress = this.registerForm.controls.adress as FormArray;
+    adress.push(this.fb.group({
+      city: '',
+      street: '',
+      code:'',
+    }));
+  }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -5,13 +5,11 @@
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
-              <div class="alert alert-danger" *ngIf="errorMessage">{{userName.value}} is taken</div>
-              <label for="userName">Username</label>
-              <input type="text" formControlName="userName" class="form-control">
-              <div *ngIf="userName.touched && userName.invalid" class="alert alert-danger">
-                <div *ngIf="userName.errors.required">Username is required</div>
-                <div *ngIf="userName.errors.cannotContainSpace">Username cannot contain space</div>
-                <div *ngIf="userName.errors.rangeLength">Username must contain betwwen 5 and 9 characters</div>
+              <label for="email">Email</label>
+              <input type="text" formControlName="email" class="form-control">
+              <div *ngIf="email.touched && email.invalid" class="alert alert-danger">
+                <div *ngIf="email.errors.required">Email is required</div>
+               
 
               </div>
             </div>
@@ -48,27 +46,36 @@
             </div>
           </div>
           <div class="col-md-6">
-            <div class="form-group">
-              <label for="city">City</label>
-              <input type="text" formControlName="city" class="form-control">
-              <div *ngIf="city.touched && city.invalid" class="alert alert-danger">
-                <div *ngIf="city.errors.required">City name is required</div>
-              </div>
+            <h2>Adress</h2>
+            <button (click)="addAdress()">Add</button>
+
+            <div formArrayName="adress" *ngFor="let a of registerForm.controls.adress?.value; let i = index">
+              <ng-container [formGroupName]="i">
+                <div class="form-group">
+                  <label for="city">City</label>
+                  <input type="text" formControlName="city" class="form-control">
+
+                </div>
+                <div class="form-group">
+                  <label for="street">Street</label>
+                  <input type="text" formControlName="street" class="form-control">
+
+                </div>
+                <div class="form-group">
+                  <label for="zipCode">Zip-Code</label>
+                  <input type="text" formControlName="code" class="form-control">
+
+                </div>
+              </ng-container>
             </div>
-            <div class="form-group">
-              <label for="street">Street</label>
-              <input type="text" formControlName="street" class="form-control">
-              <div *ngIf="street.touched && street.invalid" class="alert alert-danger">
-                <div *ngIf="street.errors.required">Street name is required</div>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="zipCode">Zip-Code</label>
-              <input type="text" formControlName="code" class="form-control">
-              <div *ngIf="code.touched && code.invalid" class="alert alert-danger">
-                <div *ngIf="code.errors.required">Zip-Code is required</div>
-              </div>
-            </div>
+
+
+
+
+
+
+
+
 
 
 
@@ -98,11 +105,30 @@
 
     </div>
   </div>
-  <div class="row"  *ngIf="registered">
+  <div class="row" *ngIf="registered">
     <div class="col-md-6 offset-md-3">
       <div class="alert alert-success" role="alert">
         User successfuly registrated! Now redirecting to login page
       </div>
     </div>
   </div>
+
+
+
+  <!--TEST FORM-->
+  <!-- <form [formGroup]="testForm">
+
+
+    <h2>Credentials</h2>
+    <button (click)="addCreds()">Add</button>
+
+    <div formArrayName="credentials" *ngFor="let creds of testForm.controls.credentials?.value; let i = index">
+      <ng-container [formGroupName]="i">
+        <input placeholder="Username" formControlName="username">
+        <input placeholder="Password" formControlName="password">
+      </ng-container>
+    </div>
+
+
+  </form> -->
 </div>
