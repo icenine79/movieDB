@@ -6,6 +6,7 @@ import { shuffle, moviesArray } from "../../../shared/globals";
 import { Movie } from "../../../shared/models/movie";
 import { Subscription } from "rxjs";
 import { Fader } from 'src/app/shared/animations';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: "app-home",
@@ -24,11 +25,20 @@ export class HomeComponent implements OnInit, OnDestroy {
   error: boolean;
   topMovie$: any;
   movieRate: number;
+  safeUrl: SafeResourceUrl
   
-  constructor(private movieService: MoviesService, private fb: FormBuilder) {}
+  constructor(private movieService: MoviesService, private fb: FormBuilder,
+    private sanitizer: DomSanitizer) {}
 
   ngOnInit() {
-    this.movieForm = this.fb.group({
+/*     this.movieService.getTrailer().subscribe(data=>console.log(data))
+ */    
+
+this.safeUrl =  this.sanitizer.bypassSecurityTrustResourceUrl
+("https://www.googleapis.com/youtube/v3/search?part=snippet&q=predator&topicId=%2Fm%2F02vxn&key=AIzaSyB42WhSTkS6_0uUPX6EuGakkGz4RHXnlIc");
+  
+
+ this.movieForm = this.fb.group({
       name: ["", Validators.required]
     });
     this.getTop("Under the Dome");

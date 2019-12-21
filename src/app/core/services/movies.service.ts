@@ -2,13 +2,28 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { forkJoin, Observable } from "rxjs";
 import { Movie } from "src/app/shared/models/movie";
-
+import {map} from 'rxjs/operators'
 @Injectable({
   providedIn: "root"
 })
 export class MoviesService {
   name: string;
   constructor(private http: HttpClient) {}
+
+  getTrailer(): Observable<Object> {
+    let url =
+     ' https://www.googleapis.com/youtube/v3/search?'+
+     'part=snippet&q=predator&topicId=%2Fm%2F02vxn&key=AIzaSyB42WhSTkS6_0uUPX6EuGakkGz4RHXnlIc'
+    return this.http.get(url).pipe(
+      map(res => {
+        return res['items'];
+      })
+    );
+  }
+
+
+
+
 
   getMovies(name: string, year?: string): Observable<any> {
     let shortPlot = this.http.get(
