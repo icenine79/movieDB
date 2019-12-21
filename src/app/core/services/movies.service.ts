@@ -10,20 +10,20 @@ export class MoviesService {
   name: string;
   constructor(private http: HttpClient) {}
 
-  getTrailer(): Observable<Object> {
-    let url =
-     ' https://www.googleapis.com/youtube/v3/search?'+
-     'part=snippet&q=predator&topicId=%2Fm%2F02vxn&key=AIzaSyB42WhSTkS6_0uUPX6EuGakkGz4RHXnlIc'
-    return this.http.get(url).pipe(
-      map(res => {
-        return res['items'];
-      })
-    );
-  }
-
-
-
-
+  getTrailer(movie){
+  return this.http.get(
+    "https://www.googleapis.com/youtube/v3/search?part=snippet&q="+movie+"&topicId=%2Fm%2F02vxn&key=AIzaSyB42WhSTkS6_0uUPX6EuGakkGz4RHXnlIc"
+  ).pipe(
+    map(res => res['items']),
+    map((items: Array<any>) => {
+      return items.map(item => ({
+        title: item.snippet.title,
+        videoUrl:  `https://www.youtube.com/embed/${item.id.videoId}`,
+      }))
+    })
+  );
+}
+ 
 
   getMovies(name: string, year?: string): Observable<any> {
     let shortPlot = this.http.get(

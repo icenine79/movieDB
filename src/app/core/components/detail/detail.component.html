@@ -56,5 +56,24 @@
       </ul>
     </div>
   </div>
- 
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <ul *ngIf="trailer">
+
+        <li *ngFor="let item of trailer; let i=index">
+          <div *ngIf="i<1">
+            <iframe [class.thumbnail]="thumbnail" [src]="item.videoUrl | safeUrl" width="560" height="315"
+              frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen>
+            </iframe>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <ng-template #elseBlock>
+    Something went wrong
+  </ng-template>
+
+
+
 </div>

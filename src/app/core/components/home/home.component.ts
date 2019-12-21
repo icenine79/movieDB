@@ -1,12 +1,15 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { MoviesService } from "../../services/movies.service";
 import { shuffle, moviesArray } from "../../../shared/globals";
 import { Movie } from "../../../shared/models/movie";
-import { Subscription } from "rxjs";
+import { Subscription, Observable } from "rxjs";
 import { Fader } from 'src/app/shared/animations';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { map } from 'rxjs/operators';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: "app-home",
@@ -25,17 +28,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   error: boolean;
   topMovie$: any;
   movieRate: number;
-  safeUrl: SafeResourceUrl
-  
-  constructor(private movieService: MoviesService, private fb: FormBuilder,
-    private sanitizer: DomSanitizer) {}
+
+  constructor(
+    private movieService: MoviesService, 
+    private fb: FormBuilder,
+    private http:HttpClient) {}
 
   ngOnInit() {
-/*     this.movieService.getTrailer().subscribe(data=>console.log(data))
- */    
-
-this.safeUrl =  this.sanitizer.bypassSecurityTrustResourceUrl
-("https://www.googleapis.com/youtube/v3/search?part=snippet&q=predator&topicId=%2Fm%2F02vxn&key=AIzaSyB42WhSTkS6_0uUPX6EuGakkGz4RHXnlIc");
   
 
  this.movieForm = this.fb.group({

@@ -1,10 +1,14 @@
-import { Component, OnInit } from "@angular/core";
+import { HttpClient } from '@angular/common/http';
+import { Component, OnInit, Input } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { switchMap } from "rxjs/operators";
 import { MoviesService } from "../../services/movies.service";
 import { Movie } from "src/app/shared/models/movie";
 import {  FormBuilder } from "@angular/forms";
 import {Location} from '@angular/common';
+import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
+import { Observable } from 'rxjs';
+import {map} from 'rxjs/operators'
 
 
 @Component({
@@ -21,17 +25,18 @@ export class DetailComponent implements OnInit {
   episode: boolean;
   id: string;
   plot: any;
- 
-
+  trailer:any;
+  safeUrl: SafeResourceUrl;
   constructor(
     private movieService: MoviesService,
     private route: ActivatedRoute,
     private fb: FormBuilder,
-    private location: Location
-  ) {}
+    private location: Location  
+  ) {
+    
+  }
 
   ngOnInit() {
-
     this.route.paramMap
       .pipe(
         switchMap(params => {
@@ -45,6 +50,10 @@ export class DetailComponent implements OnInit {
         this.seasons = movieList[0];
         this.seasons = +this.seasons["totalSeasons"];
         this.showDropDown();
+       
+        this.movieService.getTrailer(this.movie.Title).subscribe(data=>{
+          this.trailer=data
+        })
       });
   }
 
