@@ -24,24 +24,9 @@ export class MoviesService {
   );
 }
  
-
-  getMovies(name: string, year?: string): Observable<any> {
-    let shortPlot = this.http.get(
-      "https://www.omdbapi.com/?t=" +
-        name +
-        "&plot=short&y=" +
-        year +
-        "&apikey=87c31e60"
-    );
-    let fullPlot = this.http.get(
-      "https://www.omdbapi.com/?t=" + name + "&plot=full&apikey=87c31e60"
-    );
-    return forkJoin([shortPlot, fullPlot]);
-  }
-
-  getEpisode(name: string, episode: string) {
+  getEpisode(name: string, episode: string):Observable<Movie> {
     this.name = name;
-    return this.http.get(
+    return this.http.get<Movie>(
       "https://www.omdbapi.com/?t=" +
         name +
         "&Season=" +
@@ -49,6 +34,16 @@ export class MoviesService {
         "&apikey=87c31e60"
     );
   }
+
+
+ getMovies(name: string): Observable<Movie> {
+    return this.http.get<Movie>("https://www.omdbapi.com/?t=" + name + "&plot=full&apikey=87c31e60");
+    
+  }
+
+
+
+
 
   //FAKEBACKEND
   storeMovies(movies: Movie): Observable<Movie[]> {

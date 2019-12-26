@@ -3,13 +3,11 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { MoviesService } from "../../services/movies.service";
-import { shuffle, moviesArray } from "../../../shared/globals";
+import { shuffle } from "../../../shared/globals";
 import { Movie } from "../../../shared/models/movie";
-import { Subscription, Observable } from "rxjs";
+import { Subscription } from "rxjs";
 import { Fader } from 'src/app/shared/animations';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { map } from 'rxjs/operators';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+
 
 @Component({
   selector: "app-home",
@@ -18,7 +16,7 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
   animations:[Fader.animations]
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  movies: any;
+  movies: Movie[];
   movieForm: FormGroup;
   storedMovies: any[] = [];
   spinner: boolean;
@@ -26,8 +24,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   notfound: string;
   error: boolean;
-  topMovie$: any;
-  movieRate: number;
+  
+  movieRate: any;
 
   constructor(
     private movieService: MoviesService, 
@@ -61,8 +59,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   getTop(movie) {
     this.subscription = this.movieService
       .getMovies(movie)
-      .subscribe(dataList => {
-        this.movies = Array.of(dataList[0]);
+      .subscribe(data => {
+        this.movies = Array.of(data);
       });
   }
 
@@ -87,28 +85,27 @@ export class HomeComponent implements OnInit, OnDestroy {
       .storeMovies(movie)
       .subscribe(() => {});
   }
-
   getMovie() {
     this.spinner = true;
-    
+
     (this.subscription = this.movieService
       .getMovies(this.name.value)
-      .subscribe((dataList: Movie) => {
-        this.movies = Array.of(dataList[0]);
+      .subscribe(data => {
+        this.movies = Array.of(data);
+        console.log(this.movies)
         this.spinner = false;
-        let error: any = this.movies.map(error => error.Error);
-        if (error[0]) {
-          this.notfound = error[0];
-          this.error = true;
-        } else {
-          this.error = false;
-          this.movieRate = this.movies.map(rating => rating.imdbRating.toString());
-        }
-      })),
-      error => console.log(error);
+        this.error = false;
+        console.log(this.movies[0].Title)
+         this.movieRate = this.movies.map(rating => rating['imdbRating'].toString()); 
+         console.log(this.movieRate)
+      })), error => console.log(error)
+
   }
+
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
+
+
 }

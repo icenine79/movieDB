@@ -1,14 +1,12 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { switchMap } from "rxjs/operators";
 import { MoviesService } from "../../services/movies.service";
 import { Movie } from "src/app/shared/models/movie";
 import {  FormBuilder } from "@angular/forms";
 import {Location} from '@angular/common';
-import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
-import { Observable } from 'rxjs';
-import {map} from 'rxjs/operators'
+import { SafeResourceUrl } from '@angular/platform-browser';
+
 
 
 @Component({
@@ -21,7 +19,7 @@ export class DetailComponent implements OnInit {
   seasons: any;
   test: any[] = [];
   dropdown: boolean;
-  episodes: [] = [];
+  episodes: any[] = [];
   episode: boolean;
   id: string;
   plot: any;
@@ -44,10 +42,10 @@ export class DetailComponent implements OnInit {
           return this.movieService.getMovies(this.id);
         })
       )
-      .subscribe((movieList: Movie) => {
-        this.movie = movieList[0];
-        this.plot = movieList[1];
-        this.seasons = movieList[0];
+      .subscribe(data => {
+        this.movie = data
+        this.plot = data
+        this.seasons = data
         this.seasons = +this.seasons["totalSeasons"];
         this.showDropDown();
        
@@ -56,7 +54,7 @@ export class DetailComponent implements OnInit {
         })
       });
   }
-
+ 
   showDropDown() {
     if (!this.seasons) {
       this.dropdown = false;

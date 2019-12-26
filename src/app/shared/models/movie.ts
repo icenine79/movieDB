@@ -1,19 +1,42 @@
-​export interface Movie {
-   title: string;
-   actors: string;
-   awards: string;
-   country: string;
-   director: string;
-   genre: string;
-   plot: string;
-   poster: string;
-   production: string;
-   rated: string;
-   released: string;
-   writer: string;
-   year: string;
-   imdbID: string;
-   imdbRating: string;
-   imdbVotes: string;
-   totalEpisodes:string;
- }
+export interface Movie {
+
+  Title: string;
+  Year: string;
+  Rated: string;
+  Released: string;
+  Runtime: string;
+  Genre: string;
+  Director: string;
+  Writer: string;
+  Actors: string;
+  Plot: string;
+  Language: string;
+  Country: string;
+  Awards: string;
+  Poster: string;
+  Ratings: [{
+    Source: string
+    Value: string
+  }]
+  Metascore: string
+  imdbRating: string
+  imdbVotes: string
+  imdbID: string
+  Type: string
+  DVD: string
+  BoxOffice: string
+  Production: string
+  Website: string
+  Response: string
+
+  Season: string;
+  totalSeasons: string;
+  Episodes: [{
+    Title: string;
+    Released: string;
+    Episode: string;
+    imdbRating: string;
+    imdbID: string;
+  }]
+}
+
