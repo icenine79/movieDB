@@ -14,6 +14,7 @@ export interface Movie {
   Country: string;
   Awards: string;
   Poster: string;
+  Error: string;
   Ratings: [{
     Source: string
     Value: string

@@ -91,13 +91,15 @@ export class HomeComponent implements OnInit, OnDestroy {
     (this.subscription = this.movieService
       .getMovies(this.name.value)
       .subscribe(data => {
+        if(data.Error){
+          this.error=true
+          this.spinner=false;
+        }else{
         this.movies = Array.of(data);
-        console.log(this.movies)
         this.spinner = false;
         this.error = false;
-        console.log(this.movies[0].Title)
          this.movieRate = this.movies.map(rating => rating['imdbRating'].toString()); 
-         console.log(this.movieRate)
+        }
       })), error => console.log(error)
 
   }
