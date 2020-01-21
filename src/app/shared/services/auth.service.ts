@@ -26,6 +26,7 @@ export class AuthService {
   }  */
   
   public get currentUserValue(): User {
+    
     return this.currentUserSubject.value;
   }
   isLoggedIn(): boolean {

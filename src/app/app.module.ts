@@ -24,6 +24,8 @@ import { RatingModule } from 'ng-starrating';
 import {  SafeUrlPipe } from "./helpers/pipes/sanitizer";
 import { MoviesService } from './core/services/movies.service';
 import { CacheService } from './core/services/cache.service';
+import { ParentComponent } from './core/components/parent/parent.component';
+import { ChildComponent } from './core/components/child/child.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,9 @@ import { CacheService } from './core/services/cache.service';
     LogChildComponent,
     DetailComponent,
     UsersListComponent,
-    SafeUrlPipe
+    SafeUrlPipe,
+    ParentComponent,
+    ChildComponent
   ],
   imports: [
     BrowserModule,

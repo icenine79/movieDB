@@ -1,3 +1,5 @@
+import { ChildComponent } from './core/components/child/child.component';
+import { ParentComponent } from './core/components/parent/parent.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './core/components/home/home.component';
@@ -14,6 +16,9 @@ export const routes: Routes = [
   {path: 'signup', component: SignupComponent},
   {path: 'login', component: LoginComponent},
   {path: 'list', component: UsersListComponent},
+  {path: 'parent', component: ParentComponent},
+  {path: 'child', component: ChildComponent},
+
   {path: 'edit/:id', component:SignupComponent},
   {path:'', redirectTo:'login', pathMatch:'full'},
   {path:'**', component: LoginComponent}
