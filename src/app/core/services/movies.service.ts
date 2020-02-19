@@ -23,7 +23,7 @@ export class MoviesService {
     })
   );
 }
- 
+
   getEpisode(name: string, episode: string):Observable<Movie> {
     this.name = name;
     return this.http.get<Movie>(
@@ -38,7 +38,7 @@ export class MoviesService {
 
  getMovies(name: string): Observable<Movie> {
     return this.http.get<Movie>("https://www.omdbapi.com/?t=" + name + "&plot=full&apikey=87c31e60");
-    
+
   }
 
 
@@ -52,6 +52,16 @@ export class MoviesService {
   getStoredMovies(): Observable<Movie[]> {
     return this.http.get<Movie[]>("/movies");
   }
+
+  insertLike(like): Observable<any>{
+    return this.http.post<any>(`/movies/like`, like);
+
+  }
+
+  getLikes(): Observable<any> {
+    return this.http.get<any>("/likes");
+  }
+
   getMovie(id: number | string) {
     return this.http.get(`/movies/${id}`);
   }

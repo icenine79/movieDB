@@ -24,16 +24,16 @@ export class HomeComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   notfound: string;
   error: boolean;
-  
+  likes:any
   movieRate: any;
 
   constructor(
-    private movieService: MoviesService, 
+    private movieService: MoviesService,
     private fb: FormBuilder,
     private http:HttpClient) {}
 
   ngOnInit() {
-  
+
 
  this.movieForm = this.fb.group({
       name: ["", Validators.required]
@@ -44,12 +44,23 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.storedMovies = data;
       this.duplicatedMovies();
     });
-  }
- 
-  convert(string: string) {
+   }
+
+   convert(string: string) {
     let number = parseFloat(string);
     return number;
   }
+
+onChange(event){
+  this.likes=event
+  console.log(this.likes)
+  this.movieService.insertLike(this.likes).subscribe(data=>{
+
+    console.log(data)
+    })
+
+}
+
 
   get name() {
     return this.movieForm.get("name");
@@ -98,7 +109,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.movies = Array.of(data);
         this.spinner = false;
         this.error = false;
-         this.movieRate = this.movies.map(rating => rating['imdbRating'].toString()); 
+         this.movieRate = this.movies.map(rating => rating['imdbRating'].toString());
         }
       })), error => console.log(error)
 

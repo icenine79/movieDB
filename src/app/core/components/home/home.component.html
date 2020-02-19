@@ -11,11 +11,12 @@
         <button [disabled]="movieForm.invalid" style="margin-top:20px" class="btn btn-success" type="submit">Get some
           reels!</button>
       </form>
-      <h4 style="margin-top:20px" *ngIf="repeatedMovie.length>2">Top 10 searches</h4>
+      <h4 style="margin-top:20px" >Top searches</h4>
       <div style="margin-top:20px">
-        <ul *ngFor="let r of repeatedMovie; let i =index">
-          <li style="color:white;" *ngIf="i<10" (click)="getTop(r)">
-            {{r}}
+        <ul class="list-group" *ngFor="let r of repeatedMovie; let i =index">
+          <li class="list-group-item" style="background-color:#d1d1d1;color:black" *ngIf="i<10">
+            {{r}}  <app-like style="float:right" (change)="onChange($event)"></app-like>
+
           </li>
         </ul>
       </div>

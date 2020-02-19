@@ -13,6 +13,8 @@ import { delay, mergeMap, materialize, dematerialize } from "rxjs/operators";
 // array in local storage for registered users
 let users = JSON.parse(localStorage.getItem("users")) || [];
 let movies = JSON.parse(localStorage.getItem("movieList")) || [];
+let likes = JSON.parse(localStorage.getItem("likes")) || [];
+
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
   intercept(
@@ -34,10 +36,14 @@ export class FakeBackendInterceptor implements HttpInterceptor {
           return register();
         case url.endsWith("/movies/store") && method === "POST":
           return storeMovies();
+          case url.endsWith("/movies/like") && method === "POST":
+          return likeMovies();
         case url.endsWith("/users/authenticate") && method === "POST":
           return authenticate();
         case url.endsWith("/movies") && method === "GET":
           return getMovies();
+          case url.endsWith("/likes") && method === "GET":
+            return getLikes();
         case url.endsWith("/users") && method === "GET":
           return getUsers();
         case url.match(/\/users\/\d+$/) && method === "GET":
@@ -60,6 +66,12 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       movies.push(movie);
       localStorage.setItem("movieList", JSON.stringify(movies));
       return ok({ id: movie.id });
+    }
+    function likeMovies() {
+      const like = body;
+      likes.push(like);
+      localStorage.setItem("likes", JSON.stringify(likes));
+      return ok({ id: like.id });
     }
     function register() {
       const user = body;
@@ -100,6 +112,11 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     function getMovies() {
       return ok(movies);
     }
+
+    function getLikes() {
+      return ok(likes);
+    }
+
     function getUsers() {
       if (!isLoggedIn()) return unauthorized();
       return ok(users);

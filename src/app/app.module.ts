@@ -26,6 +26,7 @@ import { MoviesService } from './core/services/movies.service';
 import { CacheService } from './core/services/cache.service';
 import { ParentComponent } from './core/components/parent/parent.component';
 import { ChildComponent } from './core/components/child/child.component';
+import { LikeComponent } from './core/components/like/like.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { ChildComponent } from './core/components/child/child.component';
     UsersListComponent,
     SafeUrlPipe,
     ParentComponent,
-    ChildComponent
+    ChildComponent,
+    LikeComponent
   ],
   imports: [
     BrowserModule,
