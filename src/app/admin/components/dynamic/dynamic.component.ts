@@ -1,3 +1,4 @@
+import { MoviesService } from './../../../core/services/movies.service';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
@@ -7,10 +8,19 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class DynamicComponent implements OnInit {
 
-
-  constructor() { }
+storedMovies:any;
+duplicated:any;
+  constructor(private movieService: MoviesService) { }
 
   ngOnInit() {
+    this.movieService.getStoredMovies().subscribe(data=>{
+      this.storedMovies=data;
+      console.log(this.storedMovies)
+
+    let findDuplicates = arr => arr.filter((item, index) => arr.indexOf(item) != index)
+
+  this.duplicated=findDuplicates(this.storedMovies) // All duplicates
+    })
   }
 
 }

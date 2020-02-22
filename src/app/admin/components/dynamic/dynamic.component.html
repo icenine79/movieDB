@@ -1,3 +1,7 @@
 <div class="container">
-    <h1>Hello Dynamic</h1>
+    <ul style="color:black" class="list-group" *ngFor="let m of duplicated; let i=index">
+      <li class="list-group-item" >
+        {{m}}
+      </li>
+    </ul>
 </div>

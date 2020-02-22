@@ -1,3 +1,4 @@
+import { MoviesService } from './../../../core/services/movies.service';
 import {
   Component,
   OnInit,
@@ -6,7 +7,9 @@ import {
   ViewContainerRef,
   ComponentRef,
   ComponentFactory,
-  ComponentFactoryResolver
+  ComponentFactoryResolver,
+  Output,
+  EventEmitter
 } from "@angular/core";
 import { Subscription } from "rxjs";
 import { User } from "src/app/shared/models/user";
@@ -22,7 +25,7 @@ import { CacheService } from "src/app/core/services/cache.service";
 export class AdminComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
   users: User[] = [];
-
+storedMovies:any;
   currentUser: User;
   filteredUsers: any[];
   @ViewChild("usersList", { read: ViewContainerRef, static: false }) container;
@@ -31,7 +34,8 @@ export class AdminComponent implements OnInit, OnDestroy {
   constructor(
     private cacheService: CacheService,
     private authService: AuthService,
-    private resolver: ComponentFactoryResolver
+    private resolver: ComponentFactoryResolver,
+    private movieService:MoviesService
   ) {
 
     this.currentUser = JSON.parse(localStorage.getItem("currentUser"));
@@ -39,6 +43,7 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getAll();
+
   }
 
   getAll() {
@@ -68,7 +73,7 @@ export class AdminComponent implements OnInit, OnDestroy {
 
     this.componentRef = this.container.createComponent(factory);
 
-    //this.componentRef.instance.users = this.users;
+    this.componentRef.instance.storedMovies = this.storedMovies;
   }
 
   ngOnDestroy() {
