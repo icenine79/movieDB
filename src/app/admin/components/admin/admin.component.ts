@@ -9,7 +9,8 @@ import {
   ComponentFactory,
   ComponentFactoryResolver,
   Output,
-  EventEmitter
+  EventEmitter,
+  Type
 } from "@angular/core";
 import { Subscription } from "rxjs";
 import { User } from "src/app/shared/models/user";
@@ -25,17 +26,21 @@ import { CacheService } from "src/app/core/services/cache.service";
 export class AdminComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
   users: User[] = [];
-storedMovies:any;
+  storedMovies: any;
   currentUser: User;
   filteredUsers: any[];
   @ViewChild("usersList", { read: ViewContainerRef, static: false }) container;
+  // Keep track of list of generated components for removal purposes
+  components = [];
+
+  // Expose class so that it can be used in the template
   componentRef: ComponentRef<any>;
 
   constructor(
     private cacheService: CacheService,
     private authService: AuthService,
     private resolver: ComponentFactoryResolver,
-    private movieService:MoviesService
+    private movieService: MoviesService
   ) {
 
     this.currentUser = JSON.parse(localStorage.getItem("currentUser"));
@@ -61,9 +66,9 @@ storedMovies:any;
     this.authService.logout();
   }
   filter(query: string) {
-    this.filteredUsers = query?
-       this.users.filter(user => user.userName.toLowerCase().includes(query.toLowerCase())):
-       this.users;
+    this.filteredUsers = query ?
+      this.users.filter(user => user.userName.toLowerCase().includes(query.toLowerCase())) :
+      this.users;
   }
   createComponent() {
     this.container.clear();
@@ -76,10 +81,11 @@ storedMovies:any;
     this.componentRef.instance.storedMovies = this.storedMovies;
   }
 
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-    if (this.componentRef) {
-      this.componentRef.destroy();
-    }
+
+ngOnDestroy() {
+  this.subscription.unsubscribe();
+  if (this.componentRef) {
+    this.componentRef.destroy();
   }
+}
 }

@@ -1,18 +1,21 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-like',
   templateUrl: './like.component.html',
   styleUrls: ['./like.component.css']
 })
-export class LikeComponent {
-  @Output() change = new EventEmitter()
-  like: number = 0;
+export class LikeComponent implements OnInit {
+  @Output() change=new EventEmitter()
+  plus:number=1;
+  constructor() { }
 
-  onLike() {
-    this.change.emit({
-      likes: this.like++
-    })
+  ngOnInit() {
   }
+
+increase(){
+  this.change.emit({like:this.plus++})
+}
+
 
 }

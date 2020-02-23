@@ -1,81 +1,102 @@
 <div class="container">
-
   <div class="row" *ngIf="movie">
     <div class="col-md-4">
-
-
-      <img class="mr-3" src="{{movie.Poster}}" alt="{{movie.Title}}">
+      <img class="mr-3" src="{{ movie.Poster }}" alt="{{ movie.Title }}" />
       <div class="row">
         <div class="col">
-          <button class="btn btn-warning dist" (click)="goBack()">Back to home</button>
+          <button class="btn btn-warning dist" (click)="goBack()">
+            Back to home
+          </button>
         </div>
       </div>
     </div>
     <div class="col-md-8">
-      <h3 class="mt-0">{{movie.Title}}</h3>
-      <br>
+      <h3 class="mt-0">{{ movie.Title }}</h3>
+      <br />
       <h5 class="mt-0">Plot</h5>
-      <p class="text-justify">{{plot.Plot}}</p>
-      <br>
-      <h5 class="mt-0"><b>Directed by</b> {{movie.Director}}</h5>
-      <br>
-      <h5 class="mt-0"><b>Written by</b> {{movie.Writer}}</h5>
-      <br>
-      <h5 class="mt-0"><b>Cast:</b> {{movie.Actors}}</h5>
-      <br>
-      <h5 class="mt-0"><b>Awards: </b> {{movie.Awards}}</h5>
+      <p class="text-justify">{{ plot.Plot }}</p>
+      <br />
+      <h5 class="mt-0"><b>Directed by</b> {{ movie.Director }}</h5>
+      <br />
+      <h5 class="mt-0"><b>Written by</b> {{ movie.Writer }}</h5>
+      <br />
+      <h5 class="mt-0"><b>Cast:</b> {{ movie.Actors }}</h5>
+      <br />
+      <h5 class="mt-0"><b>Awards: </b> {{ movie.Awards }}</h5>
     </div>
   </div>
   <div class="row">
     <div class="col-md-4">
       <div *ngIf="dropdown && movie.totalSeasons">
         <label>Select a season</label>
-        <select (change)="searchEpisode($event.target.value)" class="form-control">
-          <option *ngFor="let t of test" [value]="t">{{t}}</option>
+        <select
+          (change)="searchEpisode($event.target.value)"
+          class="form-control"
+        >
+          <option *ngFor="let t of test" [value]="t">{{ t }}</option>
         </select>
       </div>
     </div>
   </div>
-  <div class="row" *ngIf="episodes" style="margin-top:20px">
-    <div class="col-md-6" *ngFor="let e of episodes;let i=index">
-      <ul class="list-group">
-        <li class="list-group-item">
-          <strong>Episode {{e.Episode}}:
-            <br>
-          </strong> <i>{{e.Title}}</i>
-          <br>
-          <strong>Release date</strong>
-          <br>
-          {{e.Released}}
-          <br>
-          <strong>IMDB Rating</strong>
-          <br>
-          {{e.imdbRating}}
-        </li>
+</div>
+<div>
+  <div class="col-md-6 form-group">
+    <form [formGroup]="reviewForm" (ngSubmit)="submitReview()">
+    <label for="review">Write your review!</label>
+    <textarea class="form-control" rows="5" formControlName="review"></textarea>
+    <button class="btn btn-success" [disabled]="reviewForm.invalid"  type="submit">Send review</button>
 
-      </ul>
-    </div>
+
+
+  </form>
   </div>
-  <div class="row">
-    <div class="col-md-6 offset-md-3">
-      <ul *ngIf="trailer">
 
-        <li *ngFor="let item of trailer; let i=index">
-          <div *ngIf="i<1">
-            <div class="embed-responsive embed-responsive-16by9">
-              <iframe [src]="item.videoUrl | safeUrl" width="560" height="315" frameborder="0" webkitallowfullscreen
-                mozallowfullscreen allowfullscreen>
-              </iframe>
-            </div>
+</div>
+
+<div class="row" *ngIf="episodes" style="margin-top:20px">
+  <div class="col-md-6" *ngFor="let e of episodes; let i = index">
+    <ul class="list-group">
+      <li class="list-group-item">
+        <strong
+          >Episode {{ e.Episode }}:
+          <br />
+        </strong>
+        <i>{{ e.Title }}</i>
+        <br />
+        <strong>Release date</strong>
+        <br />
+        {{ e.Released }}
+        <br />
+        <strong>IMDB Rating</strong>
+        <br />
+        {{ e.imdbRating }}
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6 offset-md-3">
+    <ul *ngIf="trailer">
+      <li *ngFor="let item of trailer; let i = index">
+        <div *ngIf="i < 1">
+          <div class="embed-responsive embed-responsive-16by9">
+            <iframe
+              [src]="item.videoUrl | safeUrl"
+              width="560"
+              height="315"
+              frameborder="0"
+              webkitallowfullscreen
+              mozallowfullscreen
+              allowfullscreen
+            >
+            </iframe>
           </div>
-        </li>
-      </ul>
-    </div>
+        </div>
+      </li>
+    </ul>
   </div>
+
   <ng-template #elseBlock>
     Something went wrong
   </ng-template>
-
-
-
 </div>

@@ -26,6 +26,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   error: boolean;
   likes:any
   movieRate: any;
+  userReviews:any;
 
   constructor(
     private movieService: MoviesService,
@@ -44,12 +45,13 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.storedMovies = data;
       this.duplicatedMovies();
     });
+
+    this.movieService.getReviews().valueChanges().subscribe(data=>{
+      this.userReviews=data;
+
+      })
    }
 
-   convert(string: string) {
-    let number = parseFloat(string);
-    return number;
-  }
 
 onChange(event){
   this.likes=event

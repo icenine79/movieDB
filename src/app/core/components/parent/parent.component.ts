@@ -32,7 +32,7 @@ export class ParentComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    console.log(this.child.imc(21,12))
+
   }
 
 

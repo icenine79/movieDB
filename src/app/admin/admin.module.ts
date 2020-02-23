@@ -1,3 +1,5 @@
+import { CoreModule } from './../core/core.module';
+import { ChildComponent } from './../core/components/child/child.component';
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
@@ -21,7 +23,13 @@ import { ModalComponent } from "./components/user-detail/modal/modal.component";
     CommonModule,
     FormsModule,
     AdminRoutingModule,
-    NgbModule
+    NgbModule,
+    CoreModule
+
+  ],
+  exports:[
+    AdminComponent,
+    CoreModule
   ],
   entryComponents: [
     DynamicComponent,
