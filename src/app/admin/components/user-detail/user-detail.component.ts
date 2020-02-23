@@ -1,3 +1,4 @@
+import { AngularFireDatabase } from '@angular/fire/database';
 import { Component, OnInit, Input } from '@angular/core';
 import { UserService } from '../../../core/services/user.service';
 import { ActivatedRoute } from '@angular/router';

@@ -21,11 +21,14 @@ export class UserService {
     return this.http.delete(`/users/${id}`);
   }
 
+
+
+
   register(credentials: any) {
     console.log(credentials)
     return this.http.post(`/users/register`, credentials)
   }
- 
+
   getCountries(): Observable<Countries[]>{
     return this.http.get<Countries[]>('assets/capitals.json')
   }

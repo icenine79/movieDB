@@ -29,7 +29,7 @@ export class AdminComponent implements OnInit, OnDestroy {
   storedMovies: any;
   currentUser: User;
   filteredUsers: any[];
-  @ViewChild("usersList", { read: ViewContainerRef, static: false }) container;
+  @ViewChild("moviesList", { read: ViewContainerRef, static: false }) container;
   // Keep track of list of generated components for removal purposes
   components = [];
 

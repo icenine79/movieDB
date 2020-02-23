@@ -46,14 +46,11 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.duplicatedMovies();
     });
 
-    this.movieService.getReviews().valueChanges().subscribe(data=>{
-      this.userReviews=data;
 
-      })
    }
 
 
-onChange(event){
+/* onChange(event){
   this.likes=event
   console.log(this.likes)
   this.movieService.insertLike(this.likes).subscribe(data=>{
@@ -61,7 +58,7 @@ onChange(event){
     console.log(data)
     })
 
-}
+} */
 
 
   get name() {
@@ -116,7 +113,9 @@ onChange(event){
       })), error => console.log(error)
 
   }
-
+reviewReceiver(event){
+  console.log(event)
+}
 
   ngOnDestroy() {
     this.subscription.unsubscribe();

@@ -1,6 +1,6 @@
 import { MoviesService } from './../../services/movies.service';
 import { User } from './../../../shared/models/user';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-reviews',
@@ -8,16 +8,28 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./reviews.component.css']
 })
 export class ReviewsComponent implements OnInit {
-  @Input() rev: any;
+  @Output() change = new EventEmitter<any>()
+  userReviews:any;
+  likes:any;
   constructor(private movieService: MoviesService) { }
 
   ngOnInit() {
+    this.movieService.getReviews().valueChanges().subscribe(data=>{
+      this.userReviews=data;
+      })
   }
 
-receiver(event){
-
+sendReviews(){
+  this.change.emit({reviews:this.userReviews})
 }
 
+  onChange(event){
+    this.likes=event
+    console.log(this.likes)
+    this.movieService.insertLike(this.likes).subscribe(data=>{
 
+      console.log(data)
+      })
 
+  }
 }
