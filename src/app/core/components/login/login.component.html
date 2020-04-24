@@ -1,9 +1,7 @@
 <div class="container main">
   <div class="wrapper">
     <div class="col-md-8 offset-md-2">
-      <div @fade class=" col-12 login-image ">
-        <img class="img-fluid " src="assets/login-cover.jpg" alt="image not loaded">
-      </div>
+    
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <div class="form-row">
           <div class="col-md-6">
@@ -33,5 +31,4 @@
     <div class="col-md-12 text-center" style="margin-top:15px">
       <span>not a member yet? <a routerLink="/signup">sign up</a> </span>
     </div>
-    <app-log-child [loginForm]="loginForm"></app-log-child>
   </div>

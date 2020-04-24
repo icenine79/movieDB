@@ -1,38 +1,43 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AuthService } from './services/auth.service';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AppRoutingModule } from '../app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
-import { JwtModule } from '@auth0/angular-jwt';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { CoreModule } from '../core/core.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserModule } from '@angular/platform-browser';
+import { MaterialModule } from '../material/material.module';
+import { UserService } from '../core/services/user.service';
+import { fakeBackendProvider } from '../helpers/interceptors/fakebackend';
+import { errorInterceptor } from '../helpers/interceptors/error.interceptor';
+import { MoviesService } from '../core/services/movies.service';
+import { HttpClientModule } from '@angular/common/http';
+import { AuthService } from './services/auth.service';
 
 
 
 @NgModule({
   declarations: [],
   imports: [
+    BrowserModule,
     CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    AppRoutingModule,
-    HttpClientModule,
-    JwtModule,
-    NgbModule,
-    FontAwesomeModule,
-    BrowserAnimationsModule
-    ],
-  exports: [
+    CoreModule,
+    BrowserAnimationsModule,
+    CoreModule,
+    MaterialModule
+  ], exports: [
+    BrowserModule,
     CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    AppRoutingModule,
-    HttpClientModule,
-    JwtModule,
-    NgbModule
+    CoreModule,
+    BrowserAnimationsModule,
+    CoreModule,
+    MaterialModule
   ],
-  providers: [AuthService]
+  providers:[
+    UserService,
+    fakeBackendProvider,
+    errorInterceptor,
+    MoviesService,
+    HttpClientModule,
+    AuthService
+    
+  ]
 })
-export class SharedModule {}
+export class SharedModule { }

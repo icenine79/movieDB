@@ -3,7 +3,6 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { switchMap } from "rxjs/operators";
 import { MoviesService } from "../../services/movies.service";
-import { Movie } from "src/app/shared/models/movie";
 import {  FormBuilder, FormGroup, Validators } from "@angular/forms";
 import {Location} from '@angular/common';
 import { SafeResourceUrl } from '@angular/platform-browser';
@@ -95,19 +94,6 @@ reviews(){
 }
 get userReview(){return this.reviewForm.get('review')}
 
-submitReview(){
-let credentials = {
-  author: this.userName,
-  review: this.userReview.value,
-  movie: this.id
-}
-
-  this.movieService.createReview(credentials).then(data=>{
-    console.log(data)
-  }).catch(error=>{
-    console.log(error)
-  })
-}
 
 
 }

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { User } from '../../shared/models/user';
 import { HttpClient } from '@angular/common/http';
-import { Countries } from 'src/app/shared/models/countries';
 import { Observable } from 'rxjs';
 
 
@@ -29,9 +28,7 @@ export class UserService {
     return this.http.post(`/users/register`, credentials)
   }
 
-  getCountries(): Observable<Countries[]>{
-    return this.http.get<Countries[]>('assets/capitals.json')
-  }
+ 
 
 
 }

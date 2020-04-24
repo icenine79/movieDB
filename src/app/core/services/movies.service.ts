@@ -1,16 +1,14 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { forkJoin, Observable } from "rxjs";
-import { Movie } from "src/app/shared/models/movie";
 import {map} from 'rxjs/operators'
-import { AngularFireDatabase } from '@angular/fire/database';
 
 @Injectable({
   providedIn: "root"
 })
 export class MoviesService {
   name: string;
-  constructor(private http: HttpClient, private db: AngularFireDatabase) {}
+  constructor(private http: HttpClient) {}
 
   getTrailer(movie){
   return this.http.get(
@@ -26,9 +24,9 @@ export class MoviesService {
   );
 }
 
-  getEpisode(name: string, episode: string):Observable<Movie> {
+  getEpisode(name: string, episode: string):Observable<any> {
     this.name = name;
-    return this.http.get<Movie>(
+    return this.http.get<any>(
       "https://www.omdbapi.com/?t=" +
         name +
         "&Season=" +
@@ -38,30 +36,23 @@ export class MoviesService {
   }
 
 
- getMovies(name: string): Observable<Movie> {
-    return this.http.get<Movie>("https://www.omdbapi.com/?t=" + name + "&plot=full&apikey=87c31e60");
+ getMovies(name: string): Observable<any> {
+    return this.http.get<any>("https://www.omdbapi.com/?t=" + name + "&plot=full&apikey=87c31e60");
 
   }
 //FIREBASE
 
 
-createReview(review) {
-  return this.db.list('/reviews').push(review)
-}
-
-getReviews(){
-  return this.db.list('/reviews');
-}
 
 
 
 
   //FAKEBACKEND
-  storeMovies(movies: Movie): Observable<Movie[]> {
-    return this.http.post<Movie[]>(`/movies/store`, movies);
+  storeMovies(movies: any): Observable<any[]> {
+    return this.http.post<any[]>(`/movies/store`, movies);
   }
-  getStoredMovies(): Observable<Movie[]> {
-    return this.http.get<Movie[]>("/movies");
+  getStoredMovies(): Observable<any[]> {
+    return this.http.get<any[]>("/movies");
   }
 
   insertLike(like): Observable<any>{

@@ -4,7 +4,6 @@ import { AuthService } from '../../../shared/services/auth.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import {ViewEncapsulation} from '@angular/core';
 import { first } from 'rxjs/operators';
-import { Fader } from "../../../shared/animations"
 
 
 
@@ -13,7 +12,6 @@ import { Fader } from "../../../shared/animations"
   encapsulation: ViewEncapsulation.None,
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  animations:[Fader.animations]
 })
 export class LoginComponent implements OnInit {
   message:string;

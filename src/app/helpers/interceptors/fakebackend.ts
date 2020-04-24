@@ -12,8 +12,6 @@ import { delay, mergeMap, materialize, dematerialize } from "rxjs/operators";
 
 // array in local storage for registered users
 let users = JSON.parse(localStorage.getItem("users")) || [];
-let movies = JSON.parse(localStorage.getItem("movieList")) || [];
-let likes = JSON.parse(localStorage.getItem("likes")) || [];
 
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
@@ -34,26 +32,14 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       switch (true) {
         case url.endsWith("/users/register") && method === "POST":
           return register();
-        case url.endsWith("/movies/store") && method === "POST":
-          return storeMovies();
-          case url.endsWith("/movies/like") && method === "POST":
-          return likeMovies();
         case url.endsWith("/users/authenticate") && method === "POST":
           return authenticate();
-        case url.endsWith("/movies") && method === "GET":
-          return getMovies();
-          case url.endsWith("/likes") && method === "GET":
-            return getLikes();
         case url.endsWith("/users") && method === "GET":
           return getUsers();
         case url.match(/\/users\/\d+$/) && method === "GET":
           return getUserById();
         case url.match(/\/users\/\d+$/) && method === "DELETE":
           return deleteUser();
-        case url.match(/\/movies\/\d+$/) && method === "DELETE":
-          return deleteMovie();
-        case url.match(/\/movies\/\d+$/) && method === "GET":
-          return getMovieById();
         default:
           // pass through any requests not handled above
           return next.handle(request);
@@ -61,18 +47,6 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     }
 
     // route functions
-    function storeMovies() {
-      const movie = body;
-      movies.push(movie);
-      localStorage.setItem("movieList", JSON.stringify(movies));
-      return ok({ id: movie.id });
-    }
-    function likeMovies() {
-      const like = body;
-      likes.push(like);
-      localStorage.setItem("likes", JSON.stringify(likes));
-      return ok({ id: like.id });
-    }
     function register() {
       const user = body;
 
@@ -97,35 +71,15 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       return ok({
         id: user.id,
         userName: user.userName,
-        firstName: user.firstName,
-        lastName: user.lastName,
         email: user.email,
-        phone: user.phone,
-        country: user.country,
-        city: user.city,
-        street: user.street,
-        code: user.code,
-        token: "jwt-token"
       });
     }
 
-    function getMovies() {
-      return ok(movies);
-    }
 
-    function getLikes() {
-      return ok(likes);
-    }
 
     function getUsers() {
       if (!isLoggedIn()) return unauthorized();
       return ok(users);
-    }
-    function getMovieById() {
-
-
-      const movie = movies.find(x => x.id == idFromUrl());
-      return ok(movie);
     }
 
 
@@ -141,11 +95,6 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
       users = users.filter(x => x.id !== idFromUrl());
       localStorage.setItem("users", JSON.stringify(users));
-      return ok();
-    }
-    function deleteMovie() {
-      movies = movies.filter(x => x.id !== idFromUrl());
-      localStorage.setItem("movieList", JSON.stringify(users));
       return ok();
     }
     // helper functions
