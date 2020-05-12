@@ -1,4 +1,3 @@
-import { ReviewsComponent } from './components/reviews/reviews.component';
 import { ChildComponent } from './components/child/child.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -30,7 +29,7 @@ import { SafeUrlPipe } from '../helpers/pipes/sanitizer';
     LikeComponent,
     ParentComponent,
     SafeUrlPipe,
-    ReviewsComponent
+    
 
   ],
   imports: [

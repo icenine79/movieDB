@@ -1,4 +1,3 @@
-import { AngularFireDatabase } from '@angular/fire/database';
 import { Injectable } from '@angular/core';
 import { User } from '../../shared/models/user';
 import { HttpClient } from '@angular/common/http';
@@ -12,7 +11,7 @@ import { Observable } from 'rxjs';
 export class UserService {
 
 
-  constructor(private http: HttpClient, private db: AngularFireDatabase) { }
+  constructor(private http: HttpClient) { }
 
   getUser(id: number | string) {
     return this.http.get(`/users/${id}`);
@@ -22,9 +21,7 @@ export class UserService {
     return this.http.delete(`/users/${id}`);
   }
 
-  register(credentials: any) {
-    return this.db.list('/users').push(credentials)
-  }
+  
 
 
 

@@ -46,14 +46,12 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.invalid)
       return;
 
-    this.authService.login(this.email.value, this.password.value)
-      .then(data => {
+    this.authService.login(this.loginForm.value)
+      .subscribe(data => {
         let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
         this.router.navigate([returnUrl || '/home']);
         console.log(data)
 
-      }).catch(error => {
-        console.log(error)
       })
   }
 }

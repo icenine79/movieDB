@@ -1,8 +1,6 @@
-import { AngularFireAuth } from '@angular/fire/auth';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
-import { AngularFireDatabase } from '@angular/fire/database';
 import { UserService } from './core/services/user.service';
 import { fakeBackendProvider } from './helpers/interceptors/fakebackend';
 import { tokenInterceptor } from './helpers/interceptors/token.interceptor';
@@ -17,9 +15,7 @@ import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
 import { MoviesService } from './core/services/movies.service';
 import { CacheService } from './core/services/cache.service';
-import { environment } from 'src/environments/environment';
-import {AngularFireModule} from '@angular/fire';
-import {AngularFireDatabaseModule} from '@angular/fire/database';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,10 +28,8 @@ import {AngularFireDatabaseModule} from '@angular/fire/database';
     BrowserModule,
     AdminModule,
     SharedModule,
-    CoreModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFireDatabaseModule,
-  ],
+    CoreModule
+    ],
   exports:[
   ],
 
@@ -47,8 +41,7 @@ import {AngularFireDatabaseModule} from '@angular/fire/database';
     errorInterceptor,
     MoviesService,
     CacheService,
-    AngularFireDatabase,
-    AngularFireAuth
+  
   ],
 
   bootstrap: [AppComponent]

@@ -3,14 +3,13 @@ import { HttpClient } from "@angular/common/http";
 import { forkJoin, Observable } from "rxjs";
 import { Movie } from "src/app/shared/models/movie";
 import {map} from 'rxjs/operators'
-import { AngularFireDatabase } from '@angular/fire/database';
 
 @Injectable({
   providedIn: "root"
 })
 export class MoviesService {
   name: string;
-  constructor(private http: HttpClient, private db: AngularFireDatabase) {}
+  constructor(private http: HttpClient) {}
 
   getTrailer(movie){
   return this.http.get(
@@ -42,16 +41,7 @@ export class MoviesService {
     return this.http.get<Movie>("https://www.omdbapi.com/?t=" + name + "&plot=full&apikey=87c31e60");
 
   }
-//FIREBASE
 
-
-createReview(review) {
-  return this.db.list('/reviews').push(review)
-}
-
-getReviews(){
-  return this.db.list('/reviews');
-}
 
 
 

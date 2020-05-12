@@ -34,9 +34,7 @@ export class DetailComponent implements OnInit {
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private location: Location,
-    private authService: AuthService
   ) {
-     this.userName= this.authService.currentUser
   }
 
   ngOnInit() {
@@ -93,21 +91,8 @@ reviews(){
     review: ['', Validators.required]
   })
 }
-get userReview(){return this.reviewForm.get('review')}
 
-submitReview(){
-let credentials = {
-  author: this.userName,
-  review: this.userReview.value,
-  movie: this.id
-}
 
-  this.movieService.createReview(credentials).then(data=>{
-    console.log(data)
-  }).catch(error=>{
-    console.log(error)
-  })
-}
 
 
 }

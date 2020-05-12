@@ -1,7 +1,7 @@
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, FormArray, Validators } from "@angular/forms";
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { PasswordValidators } from "./password.validator";
 import { User } from 'src/app/shared/models/user';
 
@@ -18,7 +18,6 @@ export class SignupComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router,
     private route: ActivatedRoute
   ) { }
 
@@ -58,7 +57,8 @@ export class SignupComponent implements OnInit {
   onSubmit() {
     if (this.registerForm.invalid) return;
     this.registered = true
-    this.authService.registerUser(this.email.value, this.password.value).then(data=>{
+    this.authService.registeruser(this.registerForm.value)
+    .subscribe(data=>{
       console.log(data)
     })
 

@@ -50,16 +50,6 @@ export class HomeComponent implements OnInit, OnDestroy {
    }
 
 
-/* onChange(event){
-  this.likes=event
-  console.log(this.likes)
-  this.movieService.insertLike(this.likes).subscribe(data=>{
-
-    console.log(data)
-    })
-
-} */
-
 
   get name() {
     return this.movieForm.get("name");
@@ -113,9 +103,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       })), error => console.log(error)
 
   }
-reviewReceiver(event){
-  console.log(event)
-}
+
 
   ngOnDestroy() {
     this.subscription.unsubscribe();

@@ -63,7 +63,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     );
   }
   logout() {
-    this.authService.logOut()
+    this.authService.logout()
   }
   filter(query: string) {
     this.filteredUsers = query ?
