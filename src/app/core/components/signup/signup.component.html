@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="text" formControlName="email" class="form-control">
+              <div *ngIf="email.touched && email.invalid" class="alert alert-danger">
+                <div *ngIf="email.errors.required">Email is required</div>
+                <div *ngIf="email.errors.invalidEmail">Invalid email</div>
+              </div>
+            </div>
+
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input #pass type="password" formControlName="password" class="form-control">
+              <div *ngIf="password.touched && password.invalid" class="alert alert-danger">
+                <div *ngIf="password.errors.required">Password is required</div>
+                <div *ngIf="password.errors.minlength">Password should be minimum
+                  {{password.errors.minlength.requiredLength}} characters</div>
+              </div>
+            </div>
+            <div class="form-group" *ngIf="pass.value.length>=5">
+              <label for="retype">Retype Password</label>
+              <input type="password" formControlName="retype" class="form-control">
+              <div *ngIf="retype.touched && retype.invalid" class="alert alert-danger">
+                <div *ngIf="retype.errors.required">Please retype your password</div>
+                <div *ngIf="retype.errors.passwordsShouldMatch" class="alert alert-danger">
+                  Passwords do not match.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button #signup [disabled]="registerForm.invalid" class="btn btn-primary" type="submit">Sign Up</button>
+      </form>
+
+    </div>
+  </div>
+  <div class="row"  *ngIf="registered">
+    <div class="col-md-6 offset-md-3">
+      <div class="alert alert-success" role="alert">
+        User successfuly registrated! Now redirecting to login page
+      </div>
+    </div>
+  </div>
+</div>

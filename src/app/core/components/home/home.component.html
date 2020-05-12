@@ -1,0 +1,54 @@
+<div class="container-fluid">
+
+  <div class="row" *ngFor="let m of movies">
+    <div class="col-md-3">
+      <form [formGroup]="movieForm" (ngSubmit)="getMovie()">
+        <label for="name">Search for movies or series!</label>
+        <input #movie class="form-control" type="text" (keyup.enter)="insertMovie(movie.value)" formControlName="name">
+        <div *ngIf="name.touched && name.invalid" class="alert alert-danger">
+          <div *ngIf="name.errors.required">Please insert a title</div>
+        </div>
+        <button [disabled]="movieForm.invalid" style="margin-top:20px" class="btn btn-success" type="submit">Get some
+          reels!</button>
+      </form>
+      <h4 style="margin-top:20px" >Top searches</h4>
+      <div style="margin-top:20px">
+        <ul class="list-group" *ngFor="let r of repeatedMovie; let i =index">
+          <li class="list-group-item" style="background-color:#d1d1d1;color:black" *ngIf="i<10">
+            {{r}}
+
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-3 text-center">
+      <div *ngIf="spinner" class="spinner-border text-primary" role="status">
+      </div>
+      <div style="margin-top:40%;" *ngIf="error" class="alert alert-danger col-md-6 offset-md-3" role="alert">
+        {{notfound}} Check your spelling and try again
+      </div>
+
+      <div *ngIf="!error">
+        <div class="recommended-wrapper" *ngIf="movieRate>=8.0 ">
+          <img class="img-fluid" src="assets/stamp.png" alt="recommended">
+        </div>
+        <div class="img-wrapper" style="width:100%">
+          <img class="mr-3 img-fluid" src="{{m.Poster}}" alt="{{m.Title}}">
+        </div>
+      </div>
+    </div>
+        <div class="col-md-6" *ngIf="!error">
+          <h5 class="mt-0">{{m.Title}}, {{m.Year}}</h5>
+          <h5 class="mt-0">{{m.Genre}}</h5>
+          <br>
+          <h5 class="mt-0">Sinopsis</h5>
+          <br>
+          <p>{{m.Plot}}</p>
+          <p> <a [routerLink]="['/movieDetail', m.Title]">See details</a></p>
+
+            <app-reviews (change)="reviewReceiver($event)"></app-reviews>
+
+        </div>
+      </div>
+    </div>
+

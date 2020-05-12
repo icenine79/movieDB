@@ -1,0 +1,14 @@
+
+
+
+          <h4>Our viewers reiews</h4>
+          <ul class="list-group" style="color:black" *ngFor="let r of userReviews">
+            <li class="list-group-item">
+              {{r.movie}}
+              <br>
+              {{r.review}}
+              <br>
+              by {{r.author}}
+              <app-like style="float:right" (change)="onChange($event)"></app-like>
+            </li>
+          </ul>

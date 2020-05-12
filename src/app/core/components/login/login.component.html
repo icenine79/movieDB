@@ -1,0 +1,37 @@
+<div class="container main">
+  <div class="wrapper">
+    <div class="col-md-8 offset-md-2">
+      <div @fade class=" col-12 login-image ">
+        <img class="img-fluid " src="assets/login-cover.jpg" alt="image not loaded">
+      </div>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="form-row">
+          <div class="col-md-6">
+            <label for="email">Email</label>
+            <input type="text" formControlName="email" class="form-control">
+            <div *ngIf="email.touched && email.invalid" class="alert alert-danger">
+              <div *ngIf="email.errors.required">email is required</div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label for="password">Password</label>
+            <input type="password" formControlName="password" class="form-control">
+            <div *ngIf="password.touched && password.invalid" class="alert alert-danger">
+              <div *ngIf="password.errors.required">Password is required</div>
+            </div>
+            <div *ngIf="errorMessage" class="alert alert-danger">
+              Username or password is incorrect
+            </div>
+          </div>
+          <div class="col-md-12 text-center">
+            <button class="btn btn-primary btn-block text-center" type="submit" style="font-weight:bold">Log into the
+              biggest, free Movies DataBase</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-12 text-center" style="margin-top:15px">
+      <span>not a member yet? <a routerLink="/signup">sign up</a> </span>
+    </div>
+    <app-log-child [loginForm]="loginForm"></app-log-child>
+  </div>

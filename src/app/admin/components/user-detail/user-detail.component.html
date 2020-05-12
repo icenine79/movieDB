@@ -1,0 +1,18 @@
+<div class="container jumbotron" *ngIf="user">
+
+    <div class="row">
+        <div class="card" style="width: 18rem;">
+          <div class="card-header">
+            Details for {{user.userName}}
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">ID: {{user.id}}</li>
+            <li class="list-group-item">Full name: {{user.firstName}} {{user.lastName}}</li>
+            <li class="list-group-item">City: {{user.city}}</li>
+            <li class="list-group-item">Street adress: {{user.street}}</li>
+            <li class="list-group-item">Zip-Code: {{user.code}}</li>
+          </ul>
+        </div>
+        <div class="col-md-3"> <button class="btn btn-danger" (click)="openModal()">Delete User</button></div>
+    </div>
+</div>
